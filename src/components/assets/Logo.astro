@@ -1,25 +1,62 @@
 ---
-const { class: className = "", ...rest } = Astro.props;
+const { class: className = "", variant = "auto", ...rest } = Astro.props;
+import logoLight from "../../images/transunifyy-logo-light.PNG";
+import logoDark from "../../images/transunifyy-logo-dark.PNG";
 ---
 
-<svg
-  class={className}
-  {...rest}
-  viewBox="0 0 400 80"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <!-- Green square background -->
-  <rect x="0" y="0" width="80" height="80" rx="6" fill="#8DC63F"/>
-  
-  <!-- +U Icon (Navy blue parts) -->
-  <!-- Horizontal bar of plus -->
-  <rect x="8" y="26" width="34" height="11" fill="#2D2A6E"/>
-  <!-- Vertical bar of plus -->
-  <rect x="20" y="10" width="11" height="34" fill="#2D2A6E"/>
-  <!-- U shape -->
-  <path d="M31 31 L31 52 C31 63 40 72 51 72 C62 72 71 63 71 52 L71 31 L60 31 L60 52 C60 57 56 61 51 61 C46 61 42 57 42 52 L42 31 Z" fill="#2D2A6E"/>
-  
-  <!-- Transunifyy text - uses currentColor for dark/light mode -->
-  <text x="92" y="55" font-family="Inter, system-ui, sans-serif" font-size="40" font-weight="600" letter-spacing="-0.02em" fill="currentColor">Transunifyy</text>
-</svg>
+{variant === "light" && (
+  <img 
+    src={logoLight.src} 
+    alt="Transunifyy" 
+    class={className}
+    {...rest}
+  />
+)}
+
+{variant === "dark" && (
+  <img 
+    src={logoDark.src} 
+    alt="Transunifyy" 
+    class={className}
+    {...rest}
+  />
+)}
+
+{variant === "auto" && (
+  <div class:list={["logo-container", className]} {...rest}>
+    <img 
+      src={logoLight.src} 
+      alt="Transunifyy" 
+      class="logo-light"
+    />
+    <img 
+      src={logoDark.src} 
+      alt="Transunifyy" 
+      class="logo-dark"
+    />
+  </div>
+)}
+
+<style>
+  .logo-container {
+    position: relative;
+  }
+  .logo-container img {
+    transition: opacity 0.3s ease;
+  }
+  .logo-light {
+    opacity: 1;
+  }
+  .logo-dark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+  :global(.scrolled) .logo-light {
+    opacity: 0;
+  }
+  :global(.scrolled) .logo-dark {
+    opacity: 1;
+  }
+</style>
