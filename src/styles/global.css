@@ -5,31 +5,32 @@
 @theme {
   /* Typography */
   --font-sans: "Inter", sans-serif;
-  /* Accent */
-  --color-accent-50: oklch(0.957 0.017 250.83);
-  --color-accent-100: oklch(0.914 0.034 249.56);
-  --color-accent-200: oklch(0.816 0.076 247.01);
-  --color-accent-300: oklch(0.729 0.12 241.73);
-  --color-accent-400: oklch(0.635 0.104 241.63);
-  --color-accent-500: oklch(0.548 0.09 241.91);
-  --color-accent-600: oklch(0.453 0.075 241.59);
-  --color-accent-700: oklch(0.369 0.061 242.31);
-  --color-accent-800: oklch(0.283 0.047 242.67);
-  --color-accent-900: oklch(0.188 0.031 241.68);
-  --color-accent-950: oklch(0.148 0.024 241.32);
-
-  /* Base */
+  
+  /* Accent - Transunifyy Lime Green (#8DC63F) */
+  --color-accent-50: oklch(0.97 0.06 130);
+  --color-accent-100: oklch(0.94 0.10 130);
+  --color-accent-200: oklch(0.88 0.15 130);
+  --color-accent-300: oklch(0.82 0.18 130);
+  --color-accent-400: oklch(0.76 0.20 130);
+  --color-accent-500: oklch(0.70 0.19 130);  /* Primary: #8DC63F */
+  --color-accent-600: oklch(0.60 0.17 130);
+  --color-accent-700: oklch(0.50 0.14 130);
+  --color-accent-800: oklch(0.40 0.11 130);
+  --color-accent-900: oklch(0.30 0.08 130);
+  --color-accent-950: oklch(0.22 0.06 130);
+  
+  /* Base - Neutral with Transunifyy Navy (#2D2A6E) tint in dark shades */
   --color-base-50: oklch(0.985 0 0);
   --color-base-100: oklch(0.97 0 0);
   --color-base-200: oklch(0.922 0 0);
   --color-base-300: oklch(0.87 0 0);
   --color-base-400: oklch(0.708 0 0);
   --color-base-500: oklch(0.556 0 0);
-  --color-base-600: oklch(0.439 0 0);
-  --color-base-700: oklch(0.371 0 0);
-  --color-base-800: oklch(0.269 0 0);
-  --color-base-900: oklch(0.205 0 0);
-  --color-base-950: oklch(0.145 0 0);
+  --color-base-600: oklch(0.439 0.02 275);
+  --color-base-700: oklch(0.371 0.03 275);
+  --color-base-800: oklch(0.30 0.06 275);   /* Navy tinted */
+  --color-base-900: oklch(0.24 0.08 275);   /* Navy: #2D2A6E */
+  --color-base-950: oklch(0.18 0.10 275);   /* Deep Navy */
 }
 :root {
   font-family: Inter, sans-serif;
