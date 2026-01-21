@@ -1,11 +1,25 @@
 ---
 const { class: className = "", ...rest } = Astro.props;
-import logoImage from "../../images/transunifyy-logo.png";
 ---
 
-<img 
-  src={logoImage.src} 
-  alt="Transunifyy - Together for social good" 
+<svg
   class={className}
   {...rest}
-/>
+  viewBox="0 0 400 80"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <!-- Green square background -->
+  <rect x="0" y="0" width="80" height="80" rx="6" fill="#8DC63F"/>
+  
+  <!-- +U Icon (Navy blue parts) -->
+  <!-- Horizontal bar of plus -->
+  <rect x="8" y="26" width="34" height="11" fill="#2D2A6E"/>
+  <!-- Vertical bar of plus -->
+  <rect x="20" y="10" width="11" height="34" fill="#2D2A6E"/>
+  <!-- U shape -->
+  <path d="M31 31 L31 52 C31 63 40 72 51 72 C62 72 71 63 71 52 L71 31 L60 31 L60 52 C60 57 56 61 51 61 C46 61 42 57 42 52 L42 31 Z" fill="#2D2A6E"/>
+  
+  <!-- Transunifyy text - uses currentColor for dark/light mode -->
+  <text x="92" y="55" font-family="Inter, system-ui, sans-serif" font-size="40" font-weight="600" letter-spacing="-0.02em" fill="currentColor">Transunifyy</text>
+</svg>
