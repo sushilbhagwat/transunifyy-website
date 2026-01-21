@@ -5,7 +5,7 @@
 //
 // Remove the video tag and uncomment the image tag below
 import { Image } from "astro:assets";
-import heroImage from "@/images/assets/heroImage.png";
+import heroImage from "@/images/assets/SDG_Image_1920_1080.png";
 // Fundations
 import Text from "@/components/fundations/elements/Text.astro";
 import Kicker from "@/components/fundations/elements/Kicker.astro";
@@ -20,9 +20,11 @@ const stats = [
 
 <section class="relative min-h-[80dvh] flex flex-col">
   <div class="absolute inset-0 z-0">
-    <video autoplay muted loop playsinline class="size-full object-cover">
+<!-- Video removed, using image instead    
+<video autoplay muted loop playsinline class="size-full object-cover">
       <source src="/night.mp4" type="video/mp4" />
     </video>
+-->
     <!-- 
     // IF you do not want a video
     // You can use an image instead
@@ -32,7 +34,7 @@ const stats = [
       width={1290}
       height={920}
       src={heroImage}
-      alt="Modern architectural building"
+      alt="Transunifyy - Together for Social Good"
       decoding="async"
       loading="lazy"
       class="size-full object-cover"
