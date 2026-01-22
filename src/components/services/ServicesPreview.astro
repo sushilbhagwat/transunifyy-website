@@ -1,49 +1,94 @@
 ---
-// Fundations
-import Text from "@/components/fundations/elements/Text.astro";
-import Kicker from "@/components/fundations/elements/Kicker.astro";
-import Button from "@/components/fundations/elements/Button.astro";
-import Wrapper from "@/components/fundations/containers/Wrapper.astro";
-// Components
-import ServiceCard from "@/components/services/ServiceCard.astro";
-// Content
-import { getCollection } from "astro:content";
-const services = await getCollection("services");
-services.sort((a, b) => {
-  const featuredDiff = (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0);
-  if (featuredDiff !== 0) return featuredDiff;
-  return a.data.title.localeCompare(b.data.title);
-});
+import Wrapper from "@/components/global/Wrapper.astro";
+import Kicker from "@/components/ui/Kicker.astro";
+import Text from "@/components/ui/Text.astro";
+import Button from "@/components/ui/Button.astro";
+import UnderlinedLink from "@/components/ui/UnderlinedLink.astro";
+import { Image } from "astro:assets";
+
+// Import your service images - update these paths to match your actual images
+import serviceImage1 from "@/images/assets/service-impact-assessment.jpg";
+import serviceImage2 from "@/images/assets/service-ngo-platform.jpg";
+import serviceImage3 from "@/images/assets/service-csr-advisory.jpg";
+import serviceImage4 from "@/images/assets/service-collaboration.jpg";
+
+const services = [
+  {
+    title: "Impact Assessment & Advisory",
+    description: "Empowering organizations to design, evaluate, and enhance their social initiatives through data-driven insights and strategic advisory.",
+    image: serviceImage1,
+    link: "/services#impact-assessment"
+  },
+  {
+    title: "Integrated Platform for NGOs",
+    description: "Digital platform designed by social experts for efficient project management, surveys & NGO operations, easing compliance with intelligent business analytics.",
+    image: serviceImage2,
+    link: "/services#ngo-platform"
+  },
+  {
+    title: "CSR Advisory Services",
+    description: "Strategic guidance for corporates to design, implement, and optimize their CSR initiatives aligned with business goals and regulatory compliance.",
+    image: serviceImage3,
+    link: "/services#csr-advisory"
+  },
+  {
+    title: "Unified Collaboration Platform",
+    description: "Bringing all stakeholders of the social ecosystem together with advanced technology for smooth donor management and amplified social impact.",
+    image: serviceImage4,
+    link: "/services#collaboration-platform"
+  }
+];
 ---
 
-<section>
-  <Wrapper variant="standard" class="py-24">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-      <Kicker class="text-base-600">What we build and how we deliver</Kicker>
-      <div class="lg:col-span-2 text-balance">
-        <Text
-          tag="h1"
-          variant="displayMD"
-          class="font-medium tracking-tight text-balance text-accent-900"
-        >
-          Thoughtfully planned construction services, built to perform and
-          endure.
+<section class="py-16 lg:py-24 bg-white">
+  <Wrapper>
+    <div class="grid lg:grid-cols-12 gap-8 lg:gap-16 items-start mb-12 lg:mb-16">
+      <!-- Left Column - Kicker -->
+      <div class="lg:col-span-4">
+        <Kicker class="text-base-500">What We Do And How We Deliver</Kicker>
+      </div>
+      
+      <!-- Right Column - Headline & Description -->
+      <div class="lg:col-span-8">
+        <Text tag="h2" variant="displayMD" class="text-base-900 mb-4">
+          Technology-driven solutions for meaningful social impact.
         </Text>
-        <Text tag="p" variant="textLG" class="text-base-600 mt-4">
-          From renovations to full builds, we manage the details—so your project
-          stays on schedule and built to last.
+        <Text tag="p" variant="textLG" class="text-base-600 mb-6">
+          From impact assessment to collaborative platforms, we provide the tools and expertise to help organizations maximize their social contribution.
         </Text>
-        <Button
-          isLink
-          size="base"
-          variant="muted"
-          href="/services"
-          class="mt-8 w-fit">See all services</Button
-        >
+        <Button isLink={true} href="/services" size="small" variant="secondary">
+          See all services
+        </Button>
       </div>
     </div>
-    <div class="grid grid-cols-1 lg:grid-cols-3 mt-12 gap-x-8 gap-y-12">
-      {services.slice(0, 3).map((service) => <ServiceCard service={service} />)}
+
+    <!-- Services Grid - 4 cards -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+      {services.map((service) => (
+        <article class="group">
+          <!-- Image -->
+          <div class="aspect-[4/3] overflow-hidden rounded-lg mb-4">
+            <Image 
+              src={service.image} 
+              alt={service.title}
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              width={400}
+              height={300}
+            />
+          </div>
+          
+          <!-- Content -->
+          <Text tag="h3" variant="textXL" class="text-base-900 font-semibold mb-2">
+            {service.title}
+          </Text>
+          <Text tag="p" variant="textBase" class="text-base-600 mb-3 line-clamp-3">
+            {service.description}
+          </Text>
+          <UnderlinedLink href={service.link} variant="dark">
+            Read further
+          </UnderlinedLink>
+        </article>
+      ))}
     </div>
   </Wrapper>
 </section>
