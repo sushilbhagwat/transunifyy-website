@@ -4,22 +4,102 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Text from "@/components/fundations/elements/Text.astro";
 import Kicker from "@/components/fundations/elements/Kicker.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import Button from "@/components/fundations/elements/Button.astro";
 // Sections
-import Principles from "@/components/services/Principles.astro";
 import Testimonials from "@/components/customers/Testimonials.astro";
-// Components
-import ServiceCard from "@/components/services/ServiceCard.astro";
-// Content
-import { getCollection } from "astro:content";
-const services = await getCollection("services");
-services.sort((a, b) => {
-  const featuredDiff = (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0);
-  if (featuredDiff !== 0) return featuredDiff;
-  return a.data.title.localeCompare(b.data.title);
-});
+// Images
+import { Image } from "astro:assets";
+import serviceImage1 from "@/images/assets/service-impact-assessment.jpg";
+import serviceImage2 from "@/images/assets/service-ngo-platform.jpg";
+import serviceImage3 from "@/images/assets/service-csr-advisory.jpg";
+import serviceImage4 from "@/images/assets/service-collaboration.jpg";
+
+const services = [
+  {
+    id: "impact-assessment",
+    number: "01",
+    title: "Impact Assessment & Advisory Services",
+    shortDesc: "Empowering organizations to design, evaluate, and enhance their social initiatives through data-driven insights and strategic advisory.",
+    fullDesc: [
+      "We help organizations measure, understand, and communicate the real-world impact of their social initiatives. Our comprehensive assessment frameworks provide actionable insights that drive better decision-making.",
+      "Our team of experts brings together domain knowledge in social development, research methodologies, and data analytics to deliver assessments that go beyond numbers – capturing the true stories of change.",
+      "Whether you're a corporate looking to evaluate CSR programs, an NGO seeking to demonstrate impact to donors, or a foundation wanting to optimize grant-making, we provide tailored solutions."
+    ],
+    features: [
+      "Baseline & Endline Studies",
+      "Theory of Change Development",
+      "Outcome Mapping & Measurement",
+      "Social Return on Investment (SROI)",
+      "Program Evaluation & Review",
+      "Impact Reporting & Visualization"
+    ],
+    image: serviceImage1
+  },
+  {
+    id: "ngo-platform",
+    number: "02",
+    title: "Integrated Platform for NGOs",
+    shortDesc: "Digital platform designed and supported by social experts for efficient project management, surveys & NGO operations, easing compliance.",
+    fullDesc: [
+      "Our integrated digital platform is specifically designed for the unique needs of Non-Profit Organizations. Built with input from social sector experts, it streamlines operations and enables NGOs to focus on their mission.",
+      "From project management to beneficiary tracking, survey tools to compliance management – everything is available in one unified platform with intelligent business analytics.",
+      "User-friendly interfaces ensure that even teams with limited technical expertise can leverage powerful tools to enhance their organizational efficiency and impact."
+    ],
+    features: [
+      "Project Management & Tracking",
+      "Beneficiary Database Management",
+      "Survey & Data Collection Tools",
+      "Compliance & Reporting Automation",
+      "Financial Management Integration",
+      "Real-time Analytics Dashboard"
+    ],
+    image: serviceImage2
+  },
+  {
+    id: "csr-advisory",
+    number: "03",
+    title: "CSR Advisory Services",
+    shortDesc: "Strategic guidance for corporates to design, implement, and optimize their CSR initiatives aligned with business goals and regulatory compliance.",
+    fullDesc: [
+      "Navigate the complex landscape of Corporate Social Responsibility with our expert advisory services. We help businesses create meaningful CSR strategies that align with their values, meet regulatory requirements, and generate lasting social impact.",
+      "Our team understands both the corporate and social sector perspectives, enabling us to bridge the gap and create programs that work for all stakeholders.",
+      "From CSR policy development to implementation partner selection, program design to impact measurement – we provide end-to-end support for your corporate giving journey."
+    ],
+    features: [
+      "CSR Strategy & Policy Development",
+      "Schedule VII Compliance Advisory",
+      "NGO Due Diligence & Selection",
+      "Program Design & Implementation",
+      "CSR Committee Support",
+      "Annual CSR Reporting"
+    ],
+    image: serviceImage3
+  },
+  {
+    id: "collaboration-platform",
+    number: "04",
+    title: "Unified Collaboration Platform",
+    shortDesc: "Bringing all stakeholders of the social ecosystem together with advanced technology for smooth donor management and amplified social impact.",
+    fullDesc: [
+      "Our collaboration platform brings together all stakeholders in the social development ecosystem – corporates, foundations, NGOs, government agencies, and communities – on a single unified platform.",
+      "With advanced technology and intuitive design, the platform enables smooth donor management, discovery and onboarding of NGOs, and seamless project management that amplifies social impact.",
+      "Real-time visibility, transparent reporting, and intelligent matching algorithms ensure that resources reach where they're needed most, creating a multiplier effect on social outcomes."
+    ],
+    features: [
+      "Multi-Stakeholder Collaboration",
+      "Donor Management System",
+      "NGO Discovery & Verification",
+      "Grant Management Workflow",
+      "Impact Tracking & Reporting",
+      "Knowledge Sharing Hub"
+    ],
+    image: serviceImage4
+  }
+];
 ---
 
 <BaseLayout navTransparent={true}>
+  <!-- Hero Section - Dark like Projects -->
   <section class="bg-accent-800">
     <Wrapper
       variant="standard"
@@ -27,32 +107,110 @@ services.sort((a, b) => {
     >
       <div class="grid grid-cols-1 lg:grid-cols-3 lg:items-end gap-12">
         <div class="max-w-4xl text-balance lg:col-span-2">
-          <Kicker class="text-white">serivces</Kicker>
+          <Kicker class="text-white">Our Services</Kicker>
           <Text
             tag="h1"
             variant="displayMD"
             class="font-medium tracking-tight mt-12 text-white"
           >
-            Construction services delivered with clarity, discipline, and
-            experience.
+            Technology-driven solutions for meaningful social impact
           </Text>
           <Text tag="p" variant="textLG" class="text-base-200 mt-4">
-            We provide end-to-end construction and renovation services across
-            residential and commercial projects, with a focus on planning,
-            coordination, and build quality.
+            We provide comprehensive services that empower organizations to maximize their social contribution through data, technology, and expertise.
           </Text>
         </div>
       </div>
     </Wrapper>
   </section>
 
-  <section>
-    <Wrapper variant="standard" class="py-24">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-24">
-        {services.map((service) => <ServiceCard service={service} />)}
+  <!-- Services Detail Sections -->
+  {services.map((service, index) => (
+    <section 
+      id={service.id} 
+      class={`${index % 2 === 0 ? 'bg-white' : 'bg-base-50'}`}
+    >
+      <Wrapper variant="standard" class="py-16 lg:py-24">
+        <div class={`grid lg:grid-cols-2 gap-12 lg:gap-16 items-center ${index % 2 === 1 ? '' : ''}`}>
+          <!-- Image Column -->
+          <div class={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+            <div class="relative">
+              <div class="absolute -top-4 -left-4 text-8xl font-bold text-base-100 select-none z-0">
+                {service.number}
+              </div>
+              <div class="aspect-[4/3] overflow-hidden rounded-2xl shadow-xl relative z-10">
+                <Image 
+                  src={service.image} 
+                  alt={service.title}
+                  class="w-full h-full object-cover"
+                  width={600}
+                  height={450}
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Content Column -->
+          <div class={`${index % 2 === 1 ? 'lg:order-1' : ''}`}>
+            <Kicker class="text-accent-600">Service {service.number}</Kicker>
+            <Text tag="h2" variant="displaySM" class="text-base-900 mt-4">
+              {service.title}
+            </Text>
+            
+            <div class="space-y-4 mt-6 mb-8">
+              {service.fullDesc.map((para) => (
+                <Text tag="p" variant="textBase" class="text-base-600">
+                  {para}
+                </Text>
+              ))}
+            </div>
+
+            <!-- Features List -->
+            <div class="mb-8">
+              <Text tag="h3" variant="textLG" class="text-base-900 font-semibold mb-4">
+                Key Offerings:
+              </Text>
+              <ul class="grid sm:grid-cols-2 gap-3">
+                {service.features.map((feature) => (
+                  <li class="flex items-start gap-2">
+                    <svg class="w-5 h-5 text-accent-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    <Text tag="span" variant="textSM" class="text-base-700">{feature}</Text>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <Button isLink={true} href="/contact" size="medium" variant="default">
+              Get in Touch
+            </Button>
+          </div>
+        </div>
+      </Wrapper>
+    </section>
+  ))}
+
+  <!-- CTA Section -->
+  <section class="bg-accent-800">
+    <Wrapper variant="standard" class="py-16 lg:py-24">
+      <div class="text-center max-w-2xl mx-auto">
+        <Text tag="h2" variant="displaySM" class="text-white">
+          Ready to amplify your social impact?
+        </Text>
+        <Text tag="p" variant="textLG" class="text-base-200 mt-4 mb-8">
+          Let's discuss how our services can help your organization create meaningful, sustainable change.
+        </Text>
+        <div class="flex flex-wrap justify-center gap-4">
+          <Button isLink={true} href="/contact" size="medium" variant="secondary">
+            Contact Us
+          </Button>
+          <Button isLink={true} href="/about" size="medium" variant="default" class="bg-white/10 hover:bg-white/20 border-white/20 text-white">
+            Learn About Us
+          </Button>
+        </div>
       </div>
     </Wrapper>
   </section>
-  <Principles />
+
   <Testimonials />
 </BaseLayout>

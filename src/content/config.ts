@@ -5,6 +5,8 @@ const team = defineCollection({
       name: z.string(),
       role: z.string().optional(),
       bio: z.string().optional(),
+category: z.string().optional(),
+      order: z.number().optional(),
       image: z.object({
         url: image(),
         alt: z.string(),

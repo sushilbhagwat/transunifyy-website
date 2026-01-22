@@ -8,35 +8,124 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 import TeamCard from "@/components/team/TeamCard.astro";
 // Content
 import { getCollection } from "astro:content";
+
 const allTeam = await getCollection("team");
+
+// Sort by order field, then by name
 allTeam.sort((a, b) => {
-  const nameA = a.data.name.toLowerCase();
-  const nameB = b.data.name.toLowerCase();
-  return nameA.localeCompare(nameB);
+  const orderA = a.data.order || 999;
+  const orderB = b.data.order || 999;
+  if (orderA !== orderB) return orderA - orderB;
+  return a.data.name.toLowerCase().localeCompare(b.data.name.toLowerCase());
 });
+
+// Filter by category
+const founders = allTeam.filter((m) => m.data.category === "founder" || m.data.category === "board");
+const mentors = allTeam.filter((m) => m.data.category === "mentor");
+const experts = allTeam.filter((m) => m.data.category === "expert");
 ---
 
-<BaseLayout>
-  <section>
-    <Wrapper variant="standard" class="py-24 lg:pt-48">
-      <div class="max-w-xl mx-auto text-center text-balance">
-        <Kicker class="text-base-600">Our team</Kicker>
+<BaseLayout navTransparent={true}>
+  <!-- Hero Section -->
+  <section class="bg-accent-800">
+    <Wrapper
+      variant="standard"
+      class="py-12 pt-32 lg:border-x lg:border-white/10"
+    >
+      <div class="max-w-3xl text-balance">
+        <Kicker class="text-white text-lg font-bold">Our Team</Kicker>
         <Text
           tag="h1"
           variant="displayMD"
-          class="font-medium tracking-tight mt-12"
+          class="font-medium tracking-tight mt-12 text-white"
         >
-          Experienced professionals behind every successful build
+          Experienced professionals driving sustainable social change
         </Text>
-        <Text tag="p" variant="textLG" class="text-base-600 mt-4">
-          Our team brings together project managers, engineers, and skilled
-          trades with a shared focus on planning, safety, and accountable
-          delivery.
+        <Text tag="p" variant="textLG" class="text-base-200 mt-4">
+          Our team brings together experts from diverse backgrounds — social development, technology, finance, and research — united by a shared commitment to amplify social impact.
         </Text>
-      </div>
-      <div class="grid grid-cols-1 lg:grid-cols-3 mt-12 gap-x-8 gap-y-24">
-        {allTeam.map((post) => <TeamCard post={post} />)}
       </div>
     </Wrapper>
   </section>
+
+  <!-- Founders & Board Section -->
+  {founders.length > 0 && (
+    <section class="bg-white">
+      <Wrapper variant="standard" class="py-10 lg:py-16">
+        <div class="text-center mb-12">
+          <Kicker class="text-accent-600">Leadership</Kicker>
+          <Text
+            tag="h2"
+            variant="displaySM"
+            class="font-medium tracking-tight mt-4 text-base-900"
+          >
+            Our Founders & Board
+          </Text>
+        </div>
+        <div class="flex flex-wrap justify-center gap-6 lg:gap-8">
+          {founders.map((post) => (
+            <div class="w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]">
+              <TeamCard post={post} />
+            </div>
+          ))}
+        </div>
+      </Wrapper>
+    </section>
+  )}
+
+  <!-- Mentors Section -->
+  {mentors.length > 0 && (
+    <section class="bg-base-50">
+      <Wrapper variant="standard" class="py-10 lg:py-16">
+        <div class="text-center mb-12">
+          <Kicker class="text-accent-600">Guidance & Vision</Kicker>
+          <Text
+            tag="h2"
+            variant="displaySM"
+            class="font-medium tracking-tight mt-4 text-base-900"
+          >
+            Our Mentors
+          </Text>
+          <Text tag="p" variant="textBase" class="text-base-600 mt-3 max-w-2xl mx-auto">
+            Seasoned leaders who provide strategic guidance and shape our vision for sustainable social impact.
+          </Text>
+        </div>
+        <div class="flex flex-wrap justify-center gap-6 lg:gap-8">
+          {mentors.map((post) => (
+            <div class="w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]">
+              <TeamCard post={post} />
+            </div>
+          ))}
+        </div>
+      </Wrapper>
+    </section>
+  )}
+
+  <!-- Expert Consultants Section -->
+  {experts.length > 0 && (
+    <section class="bg-white">
+      <Wrapper variant="standard" class="py-10 lg:py-16">
+        <div class="text-center mb-12">
+          <Kicker class="text-accent-600">Domain Expertise</Kicker>
+          <Text
+            tag="h2"
+            variant="displaySM"
+            class="font-medium tracking-tight mt-4 text-base-900"
+          >
+            Our Expert Consultants
+          </Text>
+          <Text tag="p" variant="textBase" class="text-base-600 mt-3 max-w-2xl mx-auto">
+            Specialists bringing deep expertise in environment, sustainability, CSR, and natural resource management.
+          </Text>
+        </div>
+        <div class="flex flex-wrap justify-center gap-6 lg:gap-8">
+          {experts.map((post) => (
+            <div class="w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]">
+              <TeamCard post={post} />
+            </div>
+          ))}
+        </div>
+      </Wrapper>
+    </section>
+  )}
 </BaseLayout>

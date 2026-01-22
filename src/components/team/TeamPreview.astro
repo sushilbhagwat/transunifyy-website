@@ -25,11 +25,14 @@ allTeam.sort((a, b) => {
             variant="displaySM"
             class="font-medium tracking-tight text-white mt-2"
           >
-            Meet our team
+            Meet our team of experts
+          </Text>
+          <Text tag="p" variant="textBase" class="text-white/80 mt-4">
+            Professionals from social development, technology, and finance driving impactful change.
           </Text>
         </div>
         <Button isLink size="xs" variant="muted" href="/team" class="w-fit">
-          All team
+          View all team
         </Button>
       </div>
       {allTeam.slice(0, 2).map((post) => <TeamCard post={post} />)}

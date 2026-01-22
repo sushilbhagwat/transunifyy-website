@@ -11,29 +11,37 @@ const { url, name, image, role } = {
 };
 ---
 
-<div class="relative">
+<div class="relative group w-full max-w-[280px] mx-auto">
   <a
     href={url}
     title={`View profile for ${name}`}
     aria-label={`View profile for ${name}`}
-    class="absolute inset-0 z-10"></a>
-
-  <Image
-    src={image}
-    alt={name}
-    width={800}
-    height={700}
-    loading="lazy"
-    decoding="async"
-    class="object-cover object-top rounded w-full aspect-4/3"
-  />
-
-  <div class="mt-4">
-    <Text tag="h3" variant="textXL" class="font-medium text-accent-900">
-      {name}
-    </Text>
-    <Text tag="p" variant="textBase" class="text-base-600 mt-1">
-      {role}
-    </Text>
+    class="absolute inset-0 z-10"
+  ></a>
+  
+  <!-- Elevated Card with fixed height -->
+  <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden h-full flex flex-col">
+    <!-- Photo -->
+    <div class="p-4 pb-0">
+      <Image
+        src={image}
+        alt={name}
+        width={280}
+        height={210}
+        loading="lazy"
+        decoding="async"
+        class="object-cover object-top rounded-lg w-full aspect-[4/3]"
+      />
+    </div>
+    
+    <!-- Content - Fixed height for 2 lines -->
+    <div class="p-4 pt-3 flex-1 flex flex-col">
+      <Text tag="h3" variant="textLG" class="font-semibold text-accent-900 line-clamp-1">
+        {name}
+      </Text>
+      <Text tag="p" variant="textSM" class="text-base-600 mt-1 min-h-[40px] line-clamp-2">
+        {role}
+      </Text>
+    </div>
   </div>
 </div>
