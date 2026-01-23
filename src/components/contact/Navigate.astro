@@ -4,25 +4,26 @@ import Text from "@/components/fundations/elements/Text.astro";
 import Kicker from "@/components/fundations/elements/Kicker.astro";
 import UnderlinedLink from "@/components/fundations/elements/UnderlinedLink.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
 const cards = [
   {
-    title: "Services",
+    title: "Our Services",
     description:
-      "We provide tailored solutions to meet your specific needs and goals.",
+      "Explore our comprehensive solutions for impact assessment, CSR advisory, and NGO technology platforms.",
     href: "/services",
     cta: "Explore all services",
   },
   {
-    title: "Projects",
-    description: "Explore the diverse projects we have successfully completed.",
+    title: "Case Studies",
+    description: "Discover how we've helped organizations create meaningful social impact across India.",
     href: "/projects",
-    cta: "View all projects",
+    cta: "View case studies",
   },
   {
-    title: "Join us",
-    description: "Join our growing company and help us build a better future.",
+    title: "Join Our Team",
+    description: "Be part of our mission to drive sustainable social change through technology and expertise.",
     href: "/careers",
-    cta: "View all jobs",
+    cta: "View open positions",
   },
 ];
 ---
@@ -30,15 +31,15 @@ const cards = [
 <section class="bg-accent-950">
   <Wrapper variant="standard" class="py-24 lg:py-48">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-      <Kicker class="text-base-300">Navigate</Kicker>
+      <Kicker class="text-base-300">Explore More</Kicker>
       <Text
         tag="h2"
         variant="displayLG"
         class="text-white font-medium lg:col-span-2"
       >
-        Discover how we can help bring your ideas to life with
-        <span class="text-accent-500"> our expertise, commitment,</span>
-        <span class="text-accent-500"> and innovative approach!</span>
+        Discover how we can help amplify your
+        <span class="text-accent-500"> social impact</span> through
+        <span class="text-accent-500"> data, technology & expertise!</span>
       </Text>
     </div>
     <div

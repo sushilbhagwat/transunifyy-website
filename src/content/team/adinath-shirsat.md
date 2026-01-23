@@ -2,7 +2,7 @@
 name: Adinath Shirsat
 role: Expert - Natural Resource Management
 category: expert
-order: 5
+order: 6
 bio: |
   With 11 years of experience in water resource management, irrigation, and agriculture development, Adinath has worked with leading organizations such as Watershed Organisation Trust, BAIF, CInI an initiative of Tata Trusts, Development Support Centre, and Yuva Mitra.
   His expertise spans integrated watershed management, soil and water conservation, agri-allied livelihoods, and GIS-based planning.

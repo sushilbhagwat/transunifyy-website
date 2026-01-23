@@ -1,0 +1,111 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Kicker from "@/components/fundations/elements/Kicker.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+const leadershipTeam = [
+  {
+    name: "Sushil Bhagwat",
+    role: "Co-Founder & Director",
+    expertise: "Finance, Strategy & Operations",
+    background: "30+ years in banking and finance with HDFC. Led digital transformation initiatives and strategic projects at national level. Expert in building scalable systems and processes.",
+    initials: "SB",
+  },
+  {
+    name: "Somdutt Laad",
+    role: "Co-Founder & Director",
+    expertise: "Technology & Product",
+    background: "Seasoned technology leader with deep expertise in building enterprise platforms. Passionate about leveraging technology for social good and creating scalable digital solutions.",
+    initials: "SL",
+  },
+];
+
+const advisoryTeam = [
+  {
+    name: "Ms. Renu Karnad",
+    role: "Advisor",
+    expertise: "Banking, Housing Finance & Corporate Governance",
+    background: "Former MD of HDFC Ltd. with extensive experience in financial services, digital transformation, and board governance across multiple organizations.",
+    initials: "RK",
+  },
+];
+---
+
+<section class="bg-base-50">
+  <Wrapper variant="standard" class="py-24">
+    <div class="max-w-xl mb-12">
+      <Kicker class="text-base-600">Leadership</Kicker>
+      <Text
+        tag="h2"
+        variant="displayMD"
+        class="font-medium tracking-tight mt-12 text-accent-900"
+      >
+        Guided by experience, driven by purpose
+      </Text>
+      <Text tag="p" variant="textLG" class="text-base-600 mt-4">
+        Our leadership team brings together decades of experience across finance, technology, and social development—united by a shared vision of leveraging innovation for social good.
+      </Text>
+    </div>
+    
+    <!-- Founders -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+      {leadershipTeam.map((leader) => (
+        <div class="bg-white p-8 rounded border border-base-200">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="size-16 rounded-full bg-accent-100 flex items-center justify-center">
+              <span class="text-2xl font-semibold text-accent-600">
+                {leader.initials}
+              </span>
+            </div>
+            <div>
+              <Text tag="h3" variant="textXL" class="font-medium text-accent-900">
+                {leader.name}
+              </Text>
+              <Text tag="p" variant="textSM" class="text-accent-600 font-medium">
+                {leader.role}
+              </Text>
+            </div>
+          </div>
+          <Text tag="p" variant="textSM" class="text-accent-700 font-medium mb-2">
+            {leader.expertise}
+          </Text>
+          <Text tag="p" variant="textBase" class="text-base-600">
+            {leader.background}
+          </Text>
+        </div>
+      ))}
+    </div>
+    
+    <!-- Advisory -->
+    <div class="mt-12">
+      <Text tag="h3" variant="textLG" class="font-medium text-accent-900 mb-8">
+        Advisory Board
+      </Text>
+      <div class="max-w-xl">
+        {advisoryTeam.map((advisor) => (
+          <div class="bg-white p-6 rounded border border-base-200">
+            <div class="flex items-center gap-4">
+              <div class="size-14 rounded-full bg-accent-50 flex items-center justify-center">
+                <span class="text-xl font-semibold text-accent-600">
+                  {advisor.initials}
+                </span>
+              </div>
+              <div>
+                <Text tag="h4" variant="textLG" class="font-medium text-accent-900">
+                  {advisor.name}
+                </Text>
+                <Text tag="p" variant="textSM" class="text-accent-600">
+                  {advisor.role} • {advisor.expertise}
+                </Text>
+              </div>
+            </div>
+            <Text tag="p" variant="textBase" class="text-base-600 mt-4">
+              {advisor.background}
+            </Text>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Wrapper>
+</section>

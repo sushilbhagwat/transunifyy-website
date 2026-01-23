@@ -2,7 +2,7 @@
 name: Rupali Ghate
 role: Expert - Environment & CSR Consulting
 category: expert
-order: 6
+order: 5
 bio: |
   Rupali is a dedicated Freelance Environment and CSR Consultant with over two decades of experience in project planning, policy analysis, environmental impact assessment, and corporate social responsibility (CSR) initiatives.
   Her area of expertise is in developing sustainable solutions through Research, Policy formulation and Project implementation. She has done M.Sc. in Environmental Science from Savitribai Phule Pune University and a Diploma in Human Resource Management.

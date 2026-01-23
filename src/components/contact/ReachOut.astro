@@ -3,21 +3,22 @@
 import Text from "@/components/fundations/elements/Text.astro";
 import Kicker from "@/components/fundations/elements/Kicker.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
 const items = [
   {
-    title: "Get personalized solutions",
+    title: "Tailored social impact solutions",
     description:
-      "Our expert team is here to carefully listen to your unique needs and offer tailored solutions that truly bring your vision to life.",
+      "Our expert team listens to your unique needs and offers customized solutions—whether you're a corporate, NGO, or foundation seeking to maximize your social contribution.",
   },
   {
-    title: "Discuss your project",
+    title: "End-to-end partnership support",
     description:
-      "Whether you're starting fresh or refining an existing project, we're ready to help you every step of the way.",
+      "From strategy design to impact measurement, we're with you every step of the way to ensure your initiatives create meaningful, sustainable change.",
   },
   {
-    title: "Quick response time",
+    title: "Quick and responsive engagement",
     description:
-      "We value your time and ensure a fast response to your inquiries so you get clear answers quickly.",
+      "We value your time and ensure prompt responses to your inquiries, so you can move forward with clarity and confidence.",
   },
 ];
 ---
@@ -25,14 +26,14 @@ const items = [
 <section>
   <Wrapper variant="standard" class="py-24">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-      <Kicker class="text-base-600">How to reach us</Kicker>
+      <Kicker class="text-base-600">Why reach out</Kicker>
       <Text
         tag="h2"
         variant="displayMD"
         class="font-medium tracking-tight text-balance lg:col-span-2"
       >
-        Get in touch with us and let's collaborate to bring your vision to life
-        <span class="text-accent-500"> with expert solutions and support!</span>
+        Partner with us to drive meaningful social change
+        <span class="text-accent-500"> with expert guidance and technology!</span>
       </Text>
     </div>
     <div
@@ -44,7 +45,7 @@ const items = [
             <Text
               tag="h3"
               variant="textLG"
-              class="font-medium  text-accent-900"
+              class="font-medium text-accent-900"
             >
               {item.title}
             </Text>

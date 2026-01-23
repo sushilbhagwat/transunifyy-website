@@ -1,0 +1,63 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Kicker from "@/components/fundations/elements/Kicker.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+const visionMission = {
+  vision: "To be the catalyst for a data-driven, technology-enabled social development ecosystem where every initiative creates measurable, sustainable impact.",
+  mission: "To empower NGOs, foundations, corporates, and government agencies with integrated solutions that combine on-ground expertise, cutting-edge technology, and AI-powered insights—transforming how social impact is designed, delivered, and measured.",
+};
+---
+
+<section class="bg-base-50">
+  <Wrapper variant="standard" class="py-24">
+    <div class="max-w-xl mb-12">
+      <Kicker class="text-base-600">Our Purpose</Kicker>
+      <Text
+        tag="h2"
+        variant="displayMD"
+        class="font-medium tracking-tight mt-12 text-accent-900"
+      >
+        Guided by vision, driven by mission
+      </Text>
+    </div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Vision -->
+      <div class="bg-white p-8 lg:p-12 rounded border border-base-200">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="flex size-12 items-center justify-center rounded-full bg-accent-500 text-white">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </span>
+          <Text tag="h3" variant="textXL" class="font-medium text-accent-900">
+            Our Vision
+          </Text>
+        </div>
+        <Text tag="p" variant="textLG" class="text-base-700 leading-relaxed">
+          {visionMission.vision}
+        </Text>
+      </div>
+      
+      <!-- Mission -->
+      <div class="bg-accent-950 p-8 lg:p-12 rounded">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="flex size-12 items-center justify-center rounded-full bg-accent-400 text-accent-950">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </span>
+          <Text tag="h3" variant="textXL" class="font-medium text-white">
+            Our Mission
+          </Text>
+        </div>
+        <Text tag="p" variant="textLG" class="text-base-300 leading-relaxed">
+          {visionMission.mission}
+        </Text>
+      </div>
+    </div>
+  </Wrapper>
+</section>

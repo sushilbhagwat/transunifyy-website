@@ -5,6 +5,7 @@ import Kicker from "@/components/fundations/elements/Kicker.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 // Icons
 import Plus from "@/components/fundations/icons/Plus.astro";
+
 const faqs = [
   {
     question: "How quickly will you respond to my inquiry?",
@@ -12,29 +13,29 @@ const faqs = [
       "We typically reply within one business day. If your request is urgent, include your phone number so we can reach you sooner.",
   },
   {
-    question: "What details should I share about my project?",
+    question: "What information should I share about my project?",
     answer:
-      "A brief description, location, target timeline, and budget range help us tailor our guidance and connect you with the right team members.",
+      "A brief description of your organization, the type of social initiative or CSR program, target beneficiaries, geographic scope, timeline, and budget range help us tailor our guidance and connect you with the right experts.",
   },
   {
-    question: "Do you handle both new builds and renovations?",
+    question: "Do you work with both corporates and NGOs?",
     answer:
-      "Yes. Our team supports ground-up construction, renovations, and expansions, coordinating design, permits, and delivery.",
+      "Yes. We serve corporates seeking CSR advisory and impact assessment, NGOs looking for technology platforms and capacity building, as well as foundations and government bodies working on social development initiatives.",
   },
   {
-    question: "Can we schedule an on-site visit?",
+    question: "What sectors do you specialize in?",
     answer:
-      "Absolutely. After our initial conversation, we can arrange a site walk-through to assess conditions and align on scope.",
+      "Our expertise spans multiple sectors including education, healthcare, livelihoods, water & sanitation, sustainable agriculture, environment, and women empowerment—aligned with Schedule VII and SDG frameworks.",
   },
   {
-    question: "What regions do you serve?",
+    question: "Can you help with CSR compliance and reporting?",
     answer:
-      "We primarily serve the Bay Area and greater Northern California, with select projects supported nationwide.",
+      "Absolutely. We provide end-to-end support for CSR compliance including project identification, NGO due diligence, impact assessment, and regulatory reporting as per Section 135 and Schedule VII requirements.",
   },
   {
-    question: "How do you approach budgeting and estimates?",
+    question: "Do you offer technology solutions for NGOs?",
     answer:
-      "We start with a high-level estimate based on your requirements, then refine costs with detailed scopes and transparent allowances.",
+      "Yes. Our integrated platform helps NGOs with project management, beneficiary tracking, survey tools, compliance documentation, and business analytics—designed specifically for the social sector.",
   },
 ];
 ---
@@ -52,7 +53,7 @@ const faqs = [
           Answers to common questions before we get started.
         </Text>
         <Text tag="p" variant="textBase" class="text-base-600">
-          If you need anything beyond these, send us a note and we'll respond
+          If you need anything beyond these, send us a message and we'll respond
           with the details you need.
         </Text>
       </div>
@@ -60,16 +61,16 @@ const faqs = [
         {
           faqs.map((item) => (
             <details class="group bg-base-50 p-4 rounded">
-              <summary class="flex items-start gap-4 cursor-pointer list-none [&::-webkit-details-marker]:hidden ">
+              <summary class="flex items-start gap-4 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
                 <div class="flex w-full items-start justify-between gap-4">
                   <Text
                     tag="h3"
                     variant="textBase"
-                    class="font-medium  text-accent-900 group-hover:text-accent-500"
+                    class="font-medium text-accent-900 group-hover:text-accent-500"
                   >
                     {item.question}
                   </Text>
-                  <Plus size="sm" class="group-open:rotate-90" />
+                  <Plus size="sm" class="group-open:rotate-90 transition-transform duration-200" />
                 </div>
               </summary>
               <div class="pb-8 pt-4">

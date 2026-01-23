@@ -1,0 +1,104 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Kicker from "@/components/fundations/elements/Kicker.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Icons
+import Check from "@/components/fundations/icons/Check.astro";
+
+const platformFeatures = [
+  {
+    name: "Integrated NGO Platform",
+    tagline: "One Platform. Complete Control.",
+    description: "A unified digital ecosystem that transforms how NGOs manage their entire operation—from beneficiary registration to impact reporting.",
+    features: [
+      "Beneficiary Management & Tracking",
+      "Project & Activity Management",
+      "Multi-level Approval Workflows",
+      "Document Repository & Compliance",
+      "Mobile-first Field Data Collection",
+    ],
+  },
+  {
+    name: "Intelligent Analytics Engine",
+    tagline: "From Data to Decisions.",
+    description: "AI-powered analytics that transform raw field data into actionable insights, predictive trends, and visual dashboards for informed decision-making.",
+    features: [
+      "Real-time Dashboard & Reporting",
+      "Automated Report Generation",
+      "Predictive Impact Modeling",
+      "Anomaly Detection & Alerts",
+      "Custom KPI Tracking",
+    ],
+  },
+  {
+    name: "Survey & Assessment Tools",
+    tagline: "Capture Ground Reality.",
+    description: "Robust data collection tools designed for field realities—offline capability, multi-language support, and intelligent validation.",
+    features: [
+      "Offline-first Mobile App",
+      "Multi-language Support (12+ languages)",
+      "GPS & Photo Verification",
+      "Skip Logic & Validation Rules",
+      "Real-time Data Sync",
+    ],
+  },
+  {
+    name: "Unified Collaboration Hub",
+    tagline: "Connect. Collaborate. Create Impact.",
+    description: "A secure collaboration platform that brings together corporates, NGOs, and stakeholders for transparent program management.",
+    features: [
+      "Multi-stakeholder Dashboards",
+      "Secure Document Sharing",
+      "Progress Tracking & Milestones",
+      "Communication & Updates",
+      "Audit Trail & Compliance",
+    ],
+  },
+];
+---
+
+<section class="bg-accent-950">
+  <Wrapper variant="standard" class="py-24">
+    <div class="max-w-3xl mb-16">
+      <Kicker class="text-accent-400">SocioAI Platform</Kicker>
+      <Text
+        tag="h2"
+        variant="displayMD"
+        class="font-medium tracking-tight text-white mt-12"
+      >
+        Technology built for the social sector,
+        <span class="text-accent-400"> by the social sector</span>
+      </Text>
+      <Text tag="p" variant="textLG" class="text-base-400 mt-4">
+        Our SocioAI platform isn't enterprise software repurposed for NGOs. It's built from the ground up for the unique challenges of social development—intermittent connectivity, multi-language requirements, varying digital literacy, and the need for rigorous impact measurement.
+      </Text>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {platformFeatures.map((feature) => (
+        <div class="p-8 bg-white/5 backdrop-blur-sm rounded border border-white/10 hover:border-accent-400/50 hover:bg-white/10 transition-all duration-300">
+          <Text tag="span" variant="textXS" class="text-accent-400 font-medium uppercase tracking-wider">
+            {feature.tagline}
+          </Text>
+          <Text tag="h3" variant="textXL" class="font-medium text-white mt-2">
+            {feature.name}
+          </Text>
+          <Text tag="p" variant="textBase" class="text-base-400 mt-2">
+            {feature.description}
+          </Text>
+          <ul class="mt-5 space-y-2">
+            {feature.features.map((item) => (
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-accent-400"></span>
+                <Text tag="span" variant="textSM" class="text-base-300">
+                  {item}
+                </Text>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </Wrapper>
+</section>

@@ -1,17 +1,35 @@
 ---
-// Fundations
+// =====================================================
+// TRANSUNIFYY - ABOUT US PAGE
+// Together for Social Good
+// =====================================================
+
+// Layout
 import BaseLayout from "@/layouts/BaseLayout.astro";
+
 // Sections
 import Hero from "@/components/about/Hero.astro";
 import Expertise from "@/components/about/Expertise.astro";
+import VisionMission from "@/components/about/VisionMission.astro";
+import CoreValues from "@/components/about/CoreValues.astro";
 import WhatWeDo from "@/components/landing/WhatWeDo.astro";
-import TeamPreview from "@/components/team/TeamPreview.astro";
-import Testimonials from "@/components/customers/Testimonials.astro";
+import SocioAIPlatform from "@/components/about/SocioAIPlatform.astro";
+import Leadership from "@/components/about/Leadership.astro";
+// import TeamPreview from "@/components/team/TeamPreview.astro";
+// import Testimonials from "@/components/customers/Testimonials.astro";
 ---
+
 <BaseLayout navTransparent={true}>
   <Hero />
   <Expertise />
+  <VisionMission />
+  <CoreValues />
   <WhatWeDo />
+  <SocioAIPlatform />
+  <Leadership />
+  <!-- 
+  Uncomment when ready to use:
   <TeamPreview />
   <Testimonials />
+  -->
 </BaseLayout>

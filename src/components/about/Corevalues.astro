@@ -1,0 +1,60 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Kicker from "@/components/fundations/elements/Kicker.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+const coreValues = [
+  {
+    title: "Data-Driven Excellence",
+    description: "We believe in the power of data to reveal truths, guide decisions, and measure impact. Every recommendation we make is backed by rigorous analysis and evidence.",
+  },
+  {
+    title: "Technology for Good",
+    description: "Technology is our enabler, not our master. We build solutions that are accessible, practical, and designed for the social sector's unique challenges and contexts.",
+  },
+  {
+    title: "Collaborative Partnership",
+    description: "We succeed when our partners succeed. We work alongside NGOs, corporates, and communities as true partners—understanding their needs before proposing solutions.",
+  },
+  {
+    title: "Sustainable Change",
+    description: "Quick fixes don't create lasting impact. We focus on building capacity, strengthening systems, and enabling organizations to scale their impact independently.",
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="py-24">
+    <div class="max-w-xl mb-12">
+      <Kicker class="text-base-600">Our Values</Kicker>
+      <Text
+        tag="h2"
+        variant="displayMD"
+        class="font-medium tracking-tight mt-12 text-accent-900"
+      >
+        Principles that guide everything we do
+      </Text>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {coreValues.map((value, index) => (
+        <div class="bg-base-50 p-8 rounded">
+          <div class="flex items-start gap-4">
+            <span class="flex-shrink-0 size-10 rounded-full bg-accent-500 text-white flex items-center justify-center text-lg font-semibold">
+              {index + 1}
+            </span>
+            <div>
+              <Text tag="h3" variant="textXL" class="font-medium text-accent-900">
+                {value.title}
+              </Text>
+              <Text tag="p" variant="textBase" class="text-base-600 mt-2">
+                {value.description}
+              </Text>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Wrapper>
+</section>

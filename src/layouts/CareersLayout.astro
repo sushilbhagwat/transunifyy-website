@@ -9,14 +9,16 @@ import Text from "@/components/fundations/elements/Text.astro";
 import Kicker from "@/components/fundations/elements/Kicker.astro";
 import Button from "@/components/fundations/elements/Button.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Components
+import ApplicationForm from "@/components/careers/ApplicationForm.astro";
 // Content
 import { getCollection } from "astro:content";
+
 const { frontmatter } = Astro.props;
 const allCareers = await getCollection("careers");
 const otherCareers = allCareers.filter(
   (career) => career.data.title !== frontmatter.title
 );
-
 const meta = [
   frontmatter.department,
   frontmatter.type,
@@ -24,9 +26,23 @@ const meta = [
   frontmatter.location,
   frontmatter.salary,
 ].filter(Boolean);
+
+// Generate slug from title for ApplicationForm
+const jobSlug = frontmatter.title
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/(^-|-$)/g, '');
 ---
 
-<BaseLayout navTransparent={true}>
+<BaseLayout navTransparent={false}>
+  <!-- Application Form (Hidden by default, appears when "Apply now" is clicked) -->
+  <ApplicationForm 
+    jobTitle={frontmatter.title}
+    jobSlug={jobSlug}
+    jobDepartment={frontmatter.department}
+  />
+
+  <!-- Hero Section -->
   <section class="bg-accent-800">
     <div class="relative z-10 flex-1 flex flex-col">
       <Wrapper
@@ -45,12 +61,13 @@ const meta = [
           <Text tag="p" variant="textLG" class="text-base-200 mt-4">
             {frontmatter.description}
           </Text>
+          <!-- Updated Apply button with data attribute trigger -->
           <Button
-            isLink={true}
-            href={frontmatter.applyUrl}
+            isLink={false}
             size="xs"
             variant="muted"
             class="w-fit mt-12"
+            data-apply-trigger
           >
             Apply now
           </Button>
@@ -73,6 +90,8 @@ const meta = [
       </div>
     </div>
   </section>
+
+  <!-- Job Details Section -->
   <section>
     <Wrapper variant="standard" class="py-12">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-8 gap-x-24">
@@ -80,11 +99,26 @@ const meta = [
           <Wrapper variant="prose">
             <slot />
           </Wrapper>
+          
+          <!-- Additional Apply button at bottom of content -->
+          <div class="mt-12 pt-8 border-t border-base-200">
+            <Text tag="p" variant="textLG" class="text-base-700 font-medium">
+              Interested in this role?
+            </Text>
+            <Button
+              isLink={false}
+              size="sm"
+              variant="primary"
+              class="w-fit mt-4"
+              data-apply-trigger
+            >
+              Apply for this position
+            </Button>
+          </div>
         </div>
         <div>
           <aside class="lg:sticky lg:top-32 p-8 bg-accent-900 w-full rounded">
             <Logo class="h-8 text-white" />
-
             <div class="mt-12 lg:mt-62">
               <Text tag="h2" variant="textXL" class="text-accent-400">
                 Other opportunities
@@ -103,6 +137,19 @@ const meta = [
                   ))
                 }
               </ul>
+            </div>
+            
+            <!-- Apply button in sidebar -->
+            <div class="mt-8 pt-8 border-t border-white/10">
+              <Button
+                isLink={false}
+                size="sm"
+                variant="muted"
+                class="w-full justify-center"
+                data-apply-trigger
+              >
+                Apply now
+              </Button>
             </div>
           </aside>
         </div>
