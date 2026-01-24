@@ -1,0 +1,186 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Kicker from "@/components/fundations/elements/Kicker.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+// Social Sector Partners
+const socialPartners = [
+  { name: "Lupin Foundation", logo: "/images/partners/LupinFoundation.jpg" },
+  { name: "Atlas Copco", logo: "/images/partners/AtlasCopco.jpg" },
+  { name: "Raintree Foundation", logo: "/images/partners/RaintreeFoundation.JPG" },
+  { name: "Tejgyan Foundation", logo: "/images/partners/TejGyanFoundation.jpg" },
+
+];
+
+// Technology Partners
+const techPartners = [
+  { name: "Amazon Web Services", logo: "/images/partners/Amazon.jpg" },
+  { name: "Flutter", logo: "/images/partners/Flutter.JPG" },
+  { name: "Supabase", logo: "/images/partners/Supabase.jpg" },
+  { name: "Astro", logo: "/images/partners/Astro.JPG" },
+  { name: "Anthropic", logo: "/images/partners/Anthoropic.jpg" },
+];
+---
+
+<section class="bg-base-50 overflow-hidden">
+  <Wrapper variant="standard" class="pt-16 pb-6">
+    <div class="text-center mb-4">
+      <Kicker class="text-base-600">Our Partners</Kicker>
+      <Text
+        tag="h2"
+        variant="displayMD"
+        class="font-medium tracking-tight mt-4 text-accent-900"
+      >
+        Trusted by leading organizations
+      </Text>
+    </div>
+  </Wrapper>
+  
+  <!-- Scrolling Partners Container -->
+  <div class="relative">
+    <!-- Gradient Overlays -->
+    <div class="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-base-50 to-transparent z-10 pointer-events-none"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-base-50 to-transparent z-10 pointer-events-none"></div>
+    
+    <!-- Scrolling Track -->
+    <div class="flex animate-scroll">
+      <!-- Separator: Social Sector -->
+        <div class="flex-shrink-0 w-28 h-16 md:w-40 md:h-20 bg-accent-600 rounded-lg flex items-center justify-center p-4">
+          <Text tag="span" variant="textSM" class="text-white font-medium text-center">
+            Social Sector<br/>Partners
+          </Text>
+        </div>
+
+	<!-- First Set -->
+      <div class="flex items-center gap-6 px-3">
+        <!-- Social Sector Partners -->
+        {
+          socialPartners.map((partner) => (
+            <div class="flex-shrink-0 w-28 h-16 md:w-40 md:h-20 bg-white rounded-lg border border-base-200 flex items-center justify-center p-2 hover:border-accent-300 hover:shadow-md transition-all duration-300">
+              <img 
+                src={partner.logo} 
+                alt={partner.name}
+                class="max-w-full max-h-full object-contain transition-all duration-300"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+              />
+              <span class="hidden text-sm text-base-500 font-medium text-center">
+                {partner.name}
+              </span>
+            </div>
+          ))
+        }
+         <!-- Separator: Technology -->
+        <div class="flex-shrink-0 w-28 h-16 md:w-40 md:h-20 bg-accent-950 rounded-lg flex items-center justify-center p-4">
+          <Text tag="span" variant="textSM" class="text-white font-medium text-center">
+            Technology<br/>Partners
+          </Text>
+        </div>
+        
+        
+        <!-- Technology Partners -->
+        {
+          techPartners.map((partner) => (
+            <div class="flex-shrink-0 w-28 h-16 md:w-40 md:h-20 bg-white rounded-lg border border-base-200 flex items-center justify-center p-2 hover:border-accent-300 hover:shadow-md transition-all duration-300">
+              <img 
+                src={partner.logo} 
+                alt={partner.name}
+                class="max-w-full max-h-full object-contain transition-all duration-300"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+              />
+              <span class="hidden text-sm text-base-500 font-medium text-center">
+                {partner.name}
+              </span>
+            </div>
+          ))
+        }
+        
+       
+      </div>
+      
+      <!-- Duplicate Set for Seamless Loop -->
+      <div class="flex items-center gap-6 px-3">
+        <!-- Social Sector Partners -->
+        {
+          socialPartners.map((partner) => (
+            <div class="flex-shrink-0 w-28 h-16 md:w-40 md:h-20 bg-white rounded-lg border border-base-200 flex items-center justify-center p-2 hover:border-accent-300 hover:shadow-md transition-all duration-300">
+              <img 
+                src={partner.logo} 
+                alt={partner.name}
+                class="max-w-full max-h-full object-contain transition-all duration-300"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+              />
+              <span class="hidden text-sm text-base-500 font-medium text-center">
+                {partner.name}
+              </span>
+            </div>
+          ))
+        }
+        
+        <!-- Separator: Social Sector -->
+        <div class="flex-shrink-0 w-28 h-16 md:w-40 md:h-20 bg-accent-600 rounded-lg flex items-center justify-center p-4">
+          <Text tag="span" variant="textSM" class="text-white font-medium text-center">
+            Social Sector<br/>Partners
+          </Text>
+        </div>
+        
+        <!-- Technology Partners -->
+        {
+          techPartners.map((partner) => (
+            <div class="flex-shrink-0 w-28 h-16 md:w-40 md:h-20 bg-white rounded-lg border border-base-200 flex items-center justify-center p-2 hover:border-accent-300 hover:shadow-md transition-all duration-300">
+              <img 
+                src={partner.logo} 
+                alt={partner.name}
+                class="max-w-full max-h-full object-contain transition-all duration-300"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+              />
+              <span class="hidden text-sm text-base-500 font-medium text-center">
+                {partner.name}
+              </span>
+            </div>
+          ))
+        }
+        
+        <!-- Separator: Technology -->
+        <div class="flex-shrink-0 w-28 h-16 md:w-40 md:h-20 bg-accent-950 rounded-lg flex items-center justify-center p-4">
+          <Text tag="span" variant="textSM" class="text-white font-medium text-center">
+            Technology<br/>Partners
+          </Text>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <Wrapper variant="standard" class="py-8">
+    <div class="text-center">
+      <Text tag="p" variant="textBase" class="text-base-500">
+        Join 10+ organizations transforming social impact with Transunifyy
+      </Text>
+    </div>
+  </Wrapper>
+</section>
+
+<style>
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  .animate-scroll {
+    animation: scroll 8s linear infinite;
+  }
+  
+  @media (min-width: 768px) {
+    .animate-scroll {
+      animation: scroll 30s linear infinite;
+    }
+  }
+  
+  .animate-scroll:hover {
+    animation-play-state: paused;
+  }
+</style>

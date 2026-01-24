@@ -7,11 +7,10 @@ import Intro from "@/components/landing/Intro.astro";
 import WhatWeDo from "@/components/landing/WhatWeDo.astro";
 import ServicesPreview from "@/components/services/ServicesPreview.astro";
 import Stats from "@/components/landing/Stats.astro";
-import Testimonials from "@/components/customers/Testimonials.astro";
-import ProjectsPreview from "@/components/projects/ProjectsPreview.astro";
-
-
-
+import Partners from "@/components/landing/Partners.astro";
+// Hidden for now - uncomment when ready
+// import Testimonials from "@/components/customers/Testimonials.astro";
+// import ProjectsPreview from "@/components/projects/ProjectsPreview.astro";
 ---
 
 <BaseLayout navTransparent={true}>
@@ -20,6 +19,10 @@ import ProjectsPreview from "@/components/projects/ProjectsPreview.astro";
   <WhatWeDo />
   <ServicesPreview />
   <Stats />
+  <Partners />
+  <!-- 
+  Hidden sections - Uncomment when ready to use:
   <Testimonials />
   <ProjectsPreview />
+  -->
 </BaseLayout>

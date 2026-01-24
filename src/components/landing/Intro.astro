@@ -6,24 +6,24 @@ import Text from "@/components/fundations/elements/Text.astro";
 import Kicker from "@/components/fundations/elements/Kicker.astro";
 import Button from "@/components/fundations/elements/Button.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
-const contactDetails = [
+
+// Transunifyy Services - 4 bullet points
+const services = [
   {
-    label: "Address",
-    value: ["24 Industrial Way", "London, E16 2AB", "United Kingdom"],
+    title: "Impact Assessment & Advisory",
+    description: "CSR compliance, SROI analysis & program evaluation",
   },
   {
-    label: "Phone",
-    value: ["+44 20 7946 0123"],
-    href: "tel:+442079460123",
+    title: "Integrated Tech Platform",
+    description: "End-to-end NGO & CSR operations management",
   },
   {
-    label: "Email",
-    value: ["info@yourcompany.co.uk"],
-    href: "mailto:info@yourcompany.co.uk",
+    title: "Monitoring & Evaluation",
+    description: "Real-time tracking, reporting & data analytics",
   },
   {
-    label: "Office hours",
-    value: ["Monday–Friday, 8:00–17:00"],
+    title: "Collaborative Platform",
+    description: "Multi-stakeholder engagement & transparency",
   },
 ];
 ---
@@ -34,49 +34,35 @@ const contactDetails = [
     class="py-8 lg:py-0 lg:border-x lg:border-white/10"
   >
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-8 gap-x-20">
-      <div class="bg-accent-600 p-8 lg:-mt-26 z-10 relative overflow-hidden">
-        <div class="relative flex flex-col justify-between h-full">
+      <!-- Services Box (Replaces Contact) -->
+      <div class="bg-accent-600 p-8 lg:-mt-44 z-10 relative overflow-hidden">
+        <div class="relative flex flex-col h-full">
           <Logo class="h-12 w-fit text-white" />
           <div>
             <Text
               tag="h2"
-              variant="displayMD"
-              class="font-medium tracking-tight text-white mt-12"
+              variant="displaySM"
+              class="font-medium tracking-tight text-white mt-16"
             >
-              Contact
+              Our Services
             </Text>
-            <div class="mt-8 space-y-6">
+            <div class="mt-8 space-y-4">
               {
-                contactDetails.map((detail) => (
-                  <div>
-                    <Text
-                      tag="span"
-                      variant="textSM"
-                      class="uppercase text-base-100 font-medium block"
-                    >
-                      {detail.label}
-                    </Text>
-                    <Text tag="p" variant="textBase" class="mt-1  text-white">
-                      {detail.value.map((line, index) => (
-                        <>
-                          {detail.href ? (
-                            <a
-                              href={
-                                Array.isArray(detail.href)
-                                  ? detail.href[index] || detail.href[0]
-                                  : detail.href
-                              }
-                              class="hover:underline decoration-2 underline-offset-4"
-                            >
-                              {line}
-                            </a>
-                          ) : (
-                            line
-                          )}
-                          {index < detail.value.length - 1 ? <br /> : ""}
-                        </>
-                      ))}
-                    </Text>
+                services.map((service) => (
+                  <div class="flex items-start gap-3">
+                    <span class="flex-shrink-0 mt-1">
+                      <svg class="w-4 h-6 text-white/80" fill="currentColor" viewBox="0 0 20 30">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                    </span>
+                    <div>
+                      <Text tag="p" variant="textBase" class="text-white font-medium">
+                        {service.title}
+                      </Text>
+                      <Text tag="p" variant="textSM" class="text-white/70 mt-0.5">
+                        {service.description}
+                      </Text>
+                    </div>
                   </div>
                 ))
               }
@@ -84,33 +70,44 @@ const contactDetails = [
           </div>
         </div>
       </div>
+      
+      <!-- Right Content -->
       <div class="lg:col-span-2 py-12 lg:py-24 max-w-xl">
-        <Kicker class="text-accent-300">Get in touch</Kicker>
+        <Kicker class="text-accent-400">Partner with us</Kicker>
         <Text
           tag="h3"
           variant="displayMD"
           class="text-white font-medium tracking-tight mt-12"
         >
-          Let’s discuss your project.
+          Let's amplify your social impact.
         </Text>
         <Text
           tag="p"
           variant="textBase"
           class="text-base-300 mt-4 text-balance"
         >
-          Whether you’re planning a new build, renovation, or commercial
-          project, we’re ready to review your requirements and provide clear,
-          practical next steps.
+          Whether you're a corporate strengthening CSR strategy, an NGO seeking to scale programs, or a foundation measuring outcomes—we bring the expertise and technology to transform your vision into measurable change.
         </Text>
-        <Button
-          isLink
-          size="base"
-          variant="muted"
-          href="/contact"
-          class="w-fit mt-8"
-        >
-          Send us a message
-        </Button>
+        <div class="flex flex-wrap gap-4 mt-8">
+          <Button
+            isLink
+            size="base"
+            variant="muted"
+            href="/contact"
+            class="w-fit"
+          >
+            Get in touch
+          </Button>
+          <Button
+            isLink
+            size="base"
+            variant="ghost"
+            href="/services"
+            class="w-fit text-white hover:text-white/80"
+          >
+            Explore services →
+          </Button>
+        </div>
       </div>
     </div>
   </Wrapper>

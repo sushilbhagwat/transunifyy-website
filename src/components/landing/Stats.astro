@@ -5,10 +5,15 @@ import Logo from "@/components/assets/Logo.astro";
 import Text from "@/components/fundations/elements/Text.astro";
 import Kicker from "@/components/fundations/elements/Kicker.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
-const stats = [
-  { value: "99%", label: "Client satisfaction" },
-  { value: "500+", label: "Projects delivered" },
-  { value: "100+", label: "Industry professionals" },
+
+// SDGs we align with
+const sdgs = [
+  { number: "1", name: "No Poverty" },
+  { number: "3", name: "Good Health" },
+  { number: "4", name: "Quality Education" },
+  { number: "6", name: "Clean Water" },
+  { number: "8", name: "Decent Work" },
+  { number: "13", name: "Climate Action" },
 ];
 ---
 
@@ -21,8 +26,8 @@ const stats = [
       <div>
         <Logo class="h-12 text-white" />
         <Kicker class="text-base-400 mt-8">
-          Trusted by clients who value quality, clarity, and long-term results</Kicker
-        >
+          Driving impact aligned with the UN Sustainable Development Goals
+        </Kicker>
       </div>
       <div class="lg:col-span-2 text-pretty">
         <Text
@@ -30,34 +35,34 @@ const stats = [
           variant="displayLG"
           class="text-white font-medium tracking-tight"
         >
-          From private residences to large-scale commercial developments,
+          From CSR strategy to ground-level implementation,
           <span class="text-accent-400">
-            we partner closely with our clients to turn clear goals into
-            well-executed builds.
+            we partner with organizations committed to creating lasting, measurable change.
           </span>
         </Text>
         <Text tag="p" variant="textLG" class="text-base-400 mt-4">
-          Our work is grounded in transparent communication, disciplined
-          planning, and consistent execution. Every project — regardless of size
-          — is delivered with the same attention to detail and accountability.
+          Our work spans education, healthcare, livelihoods, environment, and rural development—always guided by data, enabled by technology, and rooted in what works on the ground.
         </Text>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-8 mt-12">
-          {
-            stats.map((stat) => (
-              <div>
-                <Text
-                  tag="p"
-                  variant="display2XL"
-                  class="text-white italic font-medium"
-                >
-                  {stat.value}
-                </Text>
-                <Text tag="p" variant="textLG" class="text-base-400  mt-1">
-                  {stat.label}
-                </Text>
-              </div>
-            ))
-          }
+        
+        <!-- SDG Alignment -->
+        <div class="mt-12">
+          <Text tag="p" variant="textSM" class="text-base-500 uppercase tracking-wider font-medium mb-6">
+            Aligned with SDGs
+          </Text>
+          <div class="flex flex-wrap gap-3">
+            {
+              sdgs.map((sdg) => (
+                <div class="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full border border-white/10">
+                  <span class="size-6 rounded-full bg-accent-400 text-accent-950 flex items-center justify-center text-xs font-bold">
+                    {sdg.number}
+                  </span>
+                  <Text tag="span" variant="textSM" class="text-white">
+                    {sdg.name}
+                  </Text>
+                </div>
+              ))
+            }
+          </div>
         </div>
       </div>
     </div>
