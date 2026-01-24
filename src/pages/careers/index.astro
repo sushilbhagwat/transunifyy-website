@@ -8,9 +8,36 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 import Check from "@/components/fundations/icons/Check.astro";
 // Components
 import CareerCard from "@/components/careers/CareerCard.astro";
-// Content
-import { getCollection } from "astro:content";
-const allCareers = await getCollection("careers");
+// Supabase
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const supabaseKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+
+console.log('Supabase URL:', supabaseUrl);
+console.log('Supabase Key exists:', !!supabaseKey);
+
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error('Missing Supabase environment variables');
+}
+
+// Create Supabase client
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+// Fetch careers from Supabase
+const { data: allCareers, error } = await supabase
+  .from('job_openings')
+  .select('*')
+  .eq('is_active', true)
+  .order('posted_at', { ascending: false });
+
+console.log('Supabase query result:', { allCareers, error });
+console.log('Number of careers:', allCareers?.length || 0);
+
+if (error) {
+  console.error('Error fetching careers:', error);
+}
+
 // Updated benefits for Transunifyy - Social Sector Focus
 const benefits = [
   {
@@ -85,7 +112,13 @@ const benefits = [
           Open Positions
         </Text>
         
-        {allCareers.length > 0 ? (
+        <!-- Debug info (remove this after testing) -->
+        <div class="mb-4 p-4 bg-yellow-100 rounded">
+          <p>Debug: Found {allCareers?.length || 0} careers</p>
+          {error && <p class="text-red-600">Error: {error.message}</p>}
+        </div>
+        
+        {(allCareers && allCareers.length > 0) ? (
           <div class="flex flex-col space-y-8">
             {allCareers.map((career) => <CareerCard career={career} />)}
           </div>
