@@ -6,7 +6,7 @@ description: >
   and partners to enable shared learning and collective impact.
 excerpt: Collaboration designed for real-world impact.
 image:
-  url: "/src/images/services/collaborative-platform.PNG"
+  url: "/src/images/services/collaborative-plat.png"
   alt: "Collaborative platform services"
 highlights:
   - Multi-stakeholder collaboration spaces
