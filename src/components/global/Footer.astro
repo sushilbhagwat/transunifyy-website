@@ -20,7 +20,7 @@ type LinkSection = {
 
 const services = (await getCollection("services"))
   .sort((a, b) => a.data.title.localeCompare(b.data.title))
-  .slice(0, 6);
+  .slice(0, 4);
 
 const linkSections: LinkSection[] = [
   {

@@ -6,13 +6,13 @@ import Text from "@/components/fundations/elements/Text.astro";
 import Kicker from "@/components/fundations/elements/Kicker.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 
-// SDGs we align with
+// SDGs we align with - using image icons
 const sdgs = [
-  { number: "1", name: "No Poverty" },
-  { number: "3", name: "Good Health" },
-  { number: "4", name: "Quality Education" },
-  { number: "6", name: "Clean Water" },
-  { number: "8", name: "Decent Work" },
+  { number: "01", name: "No Poverty" },
+  { number: "03", name: "Good Health" },
+  { number: "04", name: "Quality Education" },
+  { number: "06", name: "Clean Water" },
+  { number: "08", name: "Decent Work" },
   { number: "13", name: "Climate Action" },
 ];
 ---
@@ -26,7 +26,7 @@ const sdgs = [
       <div>
         <Logo class="h-12 text-white" />
         <Kicker class="text-base-400 mt-8">
-          Driving impact aligned with the UN Sustainable Development Goals
+          Driving impact aligned with the United Nations' Sustainable Development Goals
         </Kicker>
       </div>
       <div class="lg:col-span-2 text-pretty">
@@ -44,27 +44,74 @@ const sdgs = [
           Our work spans education, healthcare, livelihoods, environment, and rural development—always guided by data, enabled by technology, and rooted in what works on the ground.
         </Text>
         
-        <!-- SDG Alignment -->
+        <!-- SDG Alignment - Scrolling Icons -->
         <div class="mt-12">
           <Text tag="p" variant="textSM" class="text-base-500 uppercase tracking-wider font-medium mb-6">
             Aligned with SDGs
           </Text>
-          <div class="flex flex-wrap gap-3">
-            {
-              sdgs.map((sdg) => (
-                <div class="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full border border-white/10">
-                  <span class="size-6 rounded-full bg-accent-400 text-accent-950 flex items-center justify-center text-xs font-bold">
-                    {sdg.number}
-                  </span>
-                  <Text tag="span" variant="textSM" class="text-white">
-                    {sdg.name}
-                  </Text>
-                </div>
-              ))
-            }
+          
+          <!-- Scrolling Container -->
+          <div class="relative overflow-hidden">
+            <!-- Gradient Overlays -->
+            <div class="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-accent-950 to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-accent-950 to-transparent z-10 pointer-events-none"></div>
+            
+            <!-- Scrolling Track -->
+            <div class="flex animate-sdg-scroll">
+              <!-- First Set -->
+              <div class="flex items-center gap-4 px-2">
+                {
+                  sdgs.map((sdg) => (
+                    <div class="flex-shrink-0 w-16 h-16 lg:w-20 lg:h-20 rounded-lg overflow-hidden hover:scale-110 transition-transform duration-300">
+
+                      <img 
+                        src={`/images/SDGicons/E-WEB-Goal-${sdg.number}.png`}
+                        alt={`SDG ${sdg.number}: ${sdg.name}`}
+                        class="w-full h-full object-contain"
+                      />
+                    </div>
+                  ))
+                }
+              </div>
+              
+              <!-- Duplicate Set for Seamless Loop -->
+              <div class="flex items-center gap-4 px-2">
+                {
+                  sdgs.map((sdg) => (
+                    <div class="flex-shrink-0 w-16 h-16 lg:w-20 lg:h-20 rounded-lg overflow-hidden hover:scale-110 transition-transform duration-300">
+                      <img 
+                        src={`/images/SDGicons/E-WEB-Goal-${sdg.number}.png`}
+                        alt={`SDG ${sdg.number}: ${sdg.name}`}
+                        class="w-full h-full object-contain"
+                      />
+                    </div>
+                  ))
+                }
+              </div>
+                          
+            </div>
           </div>
         </div>
       </div>
     </div>
   </Wrapper>
 </section>
+
+<style>
+  @keyframes sdg-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  .animate-sdg-scroll {
+    animation: sdg-scroll 9s linear infinite;
+  }
+  
+  .animate-sdg-scroll:hover {
+    animation-play-state: paused;
+  }
+</style>

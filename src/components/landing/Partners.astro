@@ -10,7 +10,6 @@ const socialPartners = [
   { name: "Atlas Copco", logo: "/images/partners/AtlasCopco.jpg" },
   { name: "Raintree Foundation", logo: "/images/partners/RaintreeFoundation.JPG" },
   { name: "Tejgyan Foundation", logo: "/images/partners/TejGyanFoundation.jpg" },
-
 ];
 
 // Technology Partners
@@ -36,121 +35,95 @@ const techPartners = [
       </Text>
     </div>
   </Wrapper>
-  
-  <!-- Scrolling Partners Container -->
-  <div class="relative">
-    <!-- Gradient Overlays -->
+
+  <!-- Scrolling Container -->
+  <div class="relative overflow-hidden">
+    <!-- Gradient fades -->
     <div class="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-base-50 to-transparent z-10 pointer-events-none"></div>
     <div class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-base-50 to-transparent z-10 pointer-events-none"></div>
-    
-    <!-- Scrolling Track -->
-    <div class="flex animate-scroll">
-      <!-- Separator: Social Sector -->
-        <div class="flex-shrink-0 w-28 h-16 md:w-40 md:h-20 bg-accent-600 rounded-lg flex items-center justify-center p-4">
+
+    <!-- Marquee -->
+    <div class="marquee">
+      <!-- Group 1 -->
+      <div class="marquee-group">
+        <!-- Social label -->
+        <div class="label label-social">
           <Text tag="span" variant="textSM" class="text-white font-medium text-center">
-            Social Sector<br/>Partners
+            Social Sector<br />Partners
           </Text>
         </div>
 
-	<!-- First Set -->
-      <div class="flex items-center gap-6 px-3">
-        <!-- Social Sector Partners -->
-        {
-          socialPartners.map((partner) => (
-            <div class="flex-shrink-0 w-28 h-16 md:w-40 md:h-20 bg-white rounded-lg border border-base-200 flex items-center justify-center p-2 hover:border-accent-300 hover:shadow-md transition-all duration-300">
-              <img 
-                src={partner.logo} 
-                alt={partner.name}
-                class="max-w-full max-h-full object-contain transition-all duration-300"
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-              />
-              <span class="hidden text-sm text-base-500 font-medium text-center">
-                {partner.name}
-              </span>
-            </div>
-          ))
-        }
-         <!-- Separator: Technology -->
-        <div class="flex-shrink-0 w-28 h-16 md:w-40 md:h-20 bg-accent-950 rounded-lg flex items-center justify-center p-4">
+        {socialPartners.map((partner) => (
+          <div class="partner-card">
+            <img
+              src={partner.logo}
+              alt={partner.name}
+              class="partner-logo"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <span class="fallback">{partner.name}</span>
+          </div>
+        ))}
+
+        <!-- Tech label -->
+        <div class="label label-tech">
           <Text tag="span" variant="textSM" class="text-white font-medium text-center">
-            Technology<br/>Partners
+            Technology<br />Partners
           </Text>
         </div>
-        
-        
-        <!-- Technology Partners -->
-        {
-          techPartners.map((partner) => (
-            <div class="flex-shrink-0 w-28 h-16 md:w-40 md:h-20 bg-white rounded-lg border border-base-200 flex items-center justify-center p-2 hover:border-accent-300 hover:shadow-md transition-all duration-300">
-              <img 
-                src={partner.logo} 
-                alt={partner.name}
-                class="max-w-full max-h-full object-contain transition-all duration-300"
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-              />
-              <span class="hidden text-sm text-base-500 font-medium text-center">
-                {partner.name}
-              </span>
-            </div>
-          ))
-        }
-        
-       
+
+        {techPartners.map((partner) => (
+          <div class="partner-card">
+            <img
+              src={partner.logo}
+              alt={partner.name}
+              class="partner-logo"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <span class="fallback">{partner.name}</span>
+          </div>
+        ))}
       </div>
-      
-      <!-- Duplicate Set for Seamless Loop -->
-      <div class="flex items-center gap-6 px-3">
-        <!-- Social Sector Partners -->
-        {
-          socialPartners.map((partner) => (
-            <div class="flex-shrink-0 w-28 h-16 md:w-40 md:h-20 bg-white rounded-lg border border-base-200 flex items-center justify-center p-2 hover:border-accent-300 hover:shadow-md transition-all duration-300">
-              <img 
-                src={partner.logo} 
-                alt={partner.name}
-                class="max-w-full max-h-full object-contain transition-all duration-300"
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-              />
-              <span class="hidden text-sm text-base-500 font-medium text-center">
-                {partner.name}
-              </span>
-            </div>
-          ))
-        }
-        
-        <!-- Separator: Social Sector -->
-        <div class="flex-shrink-0 w-28 h-16 md:w-40 md:h-20 bg-accent-600 rounded-lg flex items-center justify-center p-4">
+
+      <!-- Group 2 (exact duplicate for seamless loop) -->
+      <div class="marquee-group" aria-hidden="true">
+        <div class="label label-social">
           <Text tag="span" variant="textSM" class="text-white font-medium text-center">
-            Social Sector<br/>Partners
+            Social Sector<br />Partners
           </Text>
         </div>
-        
-        <!-- Technology Partners -->
-        {
-          techPartners.map((partner) => (
-            <div class="flex-shrink-0 w-28 h-16 md:w-40 md:h-20 bg-white rounded-lg border border-base-200 flex items-center justify-center p-2 hover:border-accent-300 hover:shadow-md transition-all duration-300">
-              <img 
-                src={partner.logo} 
-                alt={partner.name}
-                class="max-w-full max-h-full object-contain transition-all duration-300"
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-              />
-              <span class="hidden text-sm text-base-500 font-medium text-center">
-                {partner.name}
-              </span>
-            </div>
-          ))
-        }
-        
-        <!-- Separator: Technology -->
-        <div class="flex-shrink-0 w-28 h-16 md:w-40 md:h-20 bg-accent-950 rounded-lg flex items-center justify-center p-4">
+
+        {socialPartners.map((partner) => (
+          <div class="partner-card">
+            <img
+              src={partner.logo}
+              alt={partner.name}
+              class="partner-logo"
+            />
+            <span class="fallback">{partner.name}</span>
+          </div>
+        ))}
+
+        <div class="label label-tech">
           <Text tag="span" variant="textSM" class="text-white font-medium text-center">
-            Technology<br/>Partners
+            Technology<br />Partners
           </Text>
         </div>
+
+        {techPartners.map((partner) => (
+          <div class="partner-card">
+            <img
+              src={partner.logo}
+              alt={partner.name}
+              class="partner-logo"
+            />
+            <span class="fallback">{partner.name}</span>
+          </div>
+        ))}
       </div>
     </div>
   </div>
-  
+
   <Wrapper variant="standard" class="py-8">
     <div class="text-center">
       <Text tag="p" variant="textBase" class="text-base-500">
@@ -161,26 +134,97 @@ const techPartners = [
 </section>
 
 <style>
-  @keyframes scroll {
-    0% {
+  /* Marquee */
+  .marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 28s linear infinite;
+  }
+
+  .marquee:hover {
+    animation-play-state: paused;
+  }
+
+  .marquee-group {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  @keyframes marquee {
+    from {
       transform: translateX(0);
     }
-    100% {
+    to {
       transform: translateX(-50%);
     }
   }
-  
-  .animate-scroll {
-    animation: scroll 8s linear infinite;
+
+  /* Cards */
+  .partner-card {
+    flex-shrink: 0;
+    width: 7rem;
+    height: 4rem;
+    background: white;
+    border-radius: 0.75rem;
+    border: 1px solid rgb(226 232 240);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem;
+    transition: all 0.3s ease;
   }
-  
+
+  .partner-card:hover {
+    box-shadow: 0 10px 20px rgb(0 0 0 / 0.12);
+    transform: translateY(-2px);
+  }
+
+  .partner-logo {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .fallback {
+    display: none;
+    font-size: 0.75rem;
+    text-align: center;
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  /* Labels */
+  .label {
+    flex-shrink: 0;
+    width: 7rem;
+    height: 4rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem;
+  }
+
+  .label-social {
+    background: rgb(79 70 229);
+  }
+
+  .label-tech {
+    background: rgb(15 23 42);
+  }
+
   @media (min-width: 768px) {
-    .animate-scroll {
-      animation: scroll 30s linear infinite;
+    .partner-card,
+    .label {
+      width: 10rem;
+      height: 5rem;
     }
-  }
-  
-  .animate-scroll:hover {
-    animation-play-state: paused;
+
+    .marquee {
+      animation-duration: 40s;
+    }
   }
 </style>
