@@ -6,7 +6,7 @@ description: >
   that deliver measurable social impact and regulatory compliance.
 excerpt: Purpose-driven CSR with structure and accountability.
 image:
-  url: "/src/images/services/csr-advisory.PNG"
+  url: "/src/images/services/csr-advisory.png"
   alt: "CSR advisory services"
 highlights:
   - CSR strategy and thematic alignment

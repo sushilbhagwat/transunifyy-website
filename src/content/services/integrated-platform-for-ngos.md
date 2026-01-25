@@ -6,7 +6,7 @@ description: >
   together to improve operational efficiency and decision-making.
 excerpt: One platform to manage programs, data, and impact.
 image:
-  url: "/src/images/services/integrated-platform.PNG"
+  url: "/src/images/services/integrated-platform.png"
   alt: "Integrated platform for NGOs"
 highlights:
   - Program and project management

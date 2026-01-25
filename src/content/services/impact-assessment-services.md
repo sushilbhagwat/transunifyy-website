@@ -6,7 +6,7 @@ description: >
   measure outcomes, demonstrate accountability, and strengthen decision-making.
 excerpt: From data to decisions — measure impact with confidence.
 image:
-  url: "/src/images/services/impact-assessment.PNG"
+  url: "/src/images/services/impact-assessment.png"
   alt: "Impact assessment services"
 highlights:
   - Theory of Change and indicator design
