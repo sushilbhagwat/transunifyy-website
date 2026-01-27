@@ -1,3 +1,4 @@
+export const prerender = false;
 ---
 // Fundations
 import BaseLayout from "@/layouts/BaseLayout.astro";
@@ -5,49 +6,137 @@ import Text from "@/components/fundations/elements/Text.astro";
 import Kicker from "@/components/fundations/elements/Kicker.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 // Components
-import BlogEntry from "@/components/blog/BlogCard.astro";
-// Content
-import { getCollection } from "astro:content";
-export async function getStaticPaths() {
-  const allPosts = await getCollection("posts");
-  const uniqueTags = [
-    ...new Set(allPosts.map((post) => post.data.tags).flat()),
-  ];
-  return uniqueTags.map((tag) => {
-    const filteredPosts = allPosts.filter((post) =>
-      post.data.tags.includes(tag)
-    );
-    return {
-      params: { tag },
-      props: { posts: filteredPosts },
-    };
-  });
-}
+import BlogCard from "@/components/blog/BlogCard.astro";
+
+// Get tag from URL
 const { tag } = Astro.params;
-const { posts } = Astro.props;
+
+// Convert slug back to tag name (replace dashes with spaces, capitalize)
+const tagName = tag.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+
+// Fetch from Supabase
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const supabaseKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+
+let posts = [];
+let allTags = [];
+
+try {
+  // Fetch all published posts
+  const postsResponse = await fetch(
+    `${supabaseUrl}/rest/v1/posts?is_published=eq.true&order=published_at.desc`,
+    {
+      headers: {
+        'apikey': supabaseKey,
+        'Authorization': `Bearer ${supabaseKey}`,
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+  
+  if (postsResponse.ok) {
+    const allPosts = await postsResponse.json();
+    
+    // Filter posts that have this tag (case-insensitive)
+    posts = allPosts.filter(post => 
+      post.tags && post.tags.some(t => 
+        t.toLowerCase().replace(/\s+/g, '-') === tag.toLowerCase()
+      )
+    );
+    
+    // Get all unique tags
+    allTags = [...new Set(allPosts.flatMap(post => post.tags || []))];
+  }
+} catch (error) {
+  console.error('Error fetching tag data:', error);
+}
+
+// SEO
+const seo = {
+  title: `${tagName} | Transunifyy Blog`,
+  description: `Articles tagged with ${tagName}`,
+};
 ---
 
-<BaseLayout>
-  <section>
-    <Wrapper variant="standard" class="py-24 lg:pt-48">
-      <div class="max-w-xl mx-auto text-center text-balance">
-        <Kicker class="text-base-600">Journal</Kicker>
+<BaseLayout seo={seo} navTransparent={true}>
+  <!-- Hero Section -->
+  <section class="bg-accent-950">
+    <Wrapper
+      variant="standard"
+      class="py-12 pt-48 lg:border-x lg:border-white/10"
+    >
+      <div class="max-w-3xl text-balance">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-sm text-base-400 mb-8">
+          <a href="/blog" class="hover:text-white transition-colors">Blog</a>
+          <span>/</span>
+          <span class="text-base-500">Tags</span>
+          <span>/</span>
+          <span class="text-white">{tagName}</span>
+        </nav>
+        
+        <Kicker class="text-accent-400">Tag</Kicker>
         <Text
           tag="h1"
           variant="displayMD"
-          class="font-medium tracking-tight mt-12 capitalize"
+          class="font-medium tracking-tight mt-4 text-white"
         >
-          {tag}
+          #{tagName}
         </Text>
-        <Text tag="p" variant="textLG" class="text-base-600 mt-4">
-          Articles tagged with “{tag}”.
+        <Text tag="p" variant="textBase" class="text-base-500 mt-4">
+          {posts.length} {posts.length === 1 ? 'article' : 'articles'} tagged with "{tagName}"
         </Text>
       </div>
-      <div
-        class="grid grid-cols-1 lg:grid-cols-3 mt-12 lg:mt-24 gap-x-8 gap-y-24"
-      >
-        {posts.map((post) => <BlogEntry post={post} />)}
-      </div>
+      
+      <!-- Popular Tags -->
+      {allTags.length > 0 && (
+        <div class="mt-8">
+          <Text tag="p" variant="textSM" class="text-base-500 mb-3">Browse other topics:</Text>
+          <div class="flex flex-wrap gap-2">
+            {allTags.slice(0, 10).map((t) => (
+              <a 
+                href={`/blog/tag/${t.toLowerCase().replace(/\s+/g, '-')}`}
+                class:list={[
+                  "px-3 py-1 rounded-full text-sm transition-colors",
+                  t.toLowerCase().replace(/\s+/g, '-') === tag.toLowerCase()
+                    ? "bg-accent-400 text-accent-950 font-medium" 
+                    : "bg-white/5 text-base-300 hover:bg-white/10 border border-white/10"
+                ]}
+              >
+                {t}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </Wrapper>
+  </section>
+
+  <!-- Posts Grid -->
+  <section>
+    <Wrapper variant="standard" class="py-16">
+      {posts.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.map((post) => (
+            <BlogCard post={post} />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12 bg-base-50 rounded-lg">
+          <Text tag="p" variant="textLG" class="text-base-600">
+            No articles found with this tag.
+          </Text>
+          <a 
+            href="/blog"
+            class="inline-flex items-center gap-2 mt-4 text-accent-600 hover:text-accent-700 font-medium"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to all posts
+          </a>
+        </div>
+      )}
     </Wrapper>
   </section>
 </BaseLayout>

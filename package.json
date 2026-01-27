@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",
+    "@astrojs/node": "^9.5.2",
     "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.0",
     "@astrolib/seo": "^1.0.0-beta.8",
@@ -22,8 +23,8 @@
     "tailwind-scrollbar-hide": "^4.0.0"
   },
   "devDependencies": {
+    "@supabase/supabase-js": "^2.39.0",
     "@tailwindcss/vite": "^4.1.18",
-    "tailwindcss": "^4.1.18",
-    "@supabase/supabase-js": "^2.39.0"
+    "tailwindcss": "^4.1.18"
   }
 }

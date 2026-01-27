@@ -6,43 +6,197 @@ import Kicker from "@/components/fundations/elements/Kicker.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 // Components
 import BlogCard from "@/components/blog/BlogCard.astro";
-// Content
-import { getCollection } from "astro:content";
-const allPosts = await getCollection("posts");
-allPosts.sort((a, b) => {
-  const dateA = new Date(a.data.pubDate).getTime(); // Convert to timestamp
-  const dateB = new Date(b.data.pubDate).getTime(); // Convert to timestamp
-  return dateB - dateA; // Compare timestamps
-});
+
+// Fetch posts from Supabase
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const supabaseKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+
+let allPosts = [];
+let featuredPost = null;
+let categories = [];
+
+try {
+  // Fetch all published posts
+  const postsResponse = await fetch(
+    `${supabaseUrl}/rest/v1/posts?is_published=eq.true&order=published_at.desc`,
+    {
+      headers: {
+        'apikey': supabaseKey,
+        'Authorization': `Bearer ${supabaseKey}`,
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+  
+  if (postsResponse.ok) {
+    allPosts = await postsResponse.json();
+    // Get featured post (first featured one, or first post)
+    featuredPost = allPosts.find(post => post.is_featured) || allPosts[0];
+  }
+
+  // Fetch categories
+  const categoriesResponse = await fetch(
+    `${supabaseUrl}/rest/v1/post_categories?order=sort_order.asc`,
+    {
+      headers: {
+        'apikey': supabaseKey,
+        'Authorization': `Bearer ${supabaseKey}`,
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+  
+  if (categoriesResponse.ok) {
+    categories = await categoriesResponse.json();
+  }
+} catch (error) {
+  console.error('Error fetching blog data:', error);
+}
+
+// Get unique tags from all posts
+const allTags = [...new Set(allPosts.flatMap(post => post.tags || []))];
+
+// Get posts excluding featured
+const regularPosts = featuredPost 
+  ? allPosts.filter(post => post.id !== featuredPost.id)
+  : allPosts;
 ---
 
 <BaseLayout navTransparent={true}>
-  <section class="bg-accent-800">
+  <!-- Hero Section -->
+  <section class="bg-accent-950">
     <Wrapper
       variant="standard"
       class="py-12 pt-48 lg:border-x lg:border-white/10"
     >
-      <div class="max-w-xl mx-auto text-center text-balance lg:col-span-2">
-        <Kicker class="text-base-300">journal</Kicker>
+      <div class="max-w-3xl text-balance">
+        <Kicker class="text-accent-400">Blog</Kicker>
         <Text
           tag="h1"
           variant="displayMD"
-          class="font-medium tracking-tight mt-12 text-white"
+          class="font-medium tracking-tight mt-8 text-white"
         >
-          Lessons learned across planning, execution, and delivery
+          Insights for Social Impact
         </Text>
         <Text tag="p" variant="textLG" class="text-base-400 mt-4">
-          Articles covering construction methods, project management, safety,
-          and practical decision-making in the field.
+          Perspectives on CSR, impact measurement, technology for good, and the evolving social development landscape in India.
         </Text>
       </div>
+      
+      <!-- Categories -->
+      {categories.length > 0 && (
+        <div class="flex flex-wrap gap-3 mt-8">
+          <a 
+            href="/blog" 
+            class="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-medium hover:bg-white/20 transition-colors"
+          >
+            All Posts
+          </a>
+          {categories.map((category) => (
+            <a 
+              href={`/blog/category/${category.slug}`}
+              class="px-4 py-2 bg-white/5 text-base-300 rounded-full text-sm font-medium hover:bg-white/10 transition-colors border border-white/10"
+            >
+              {category.name}
+            </a>
+          ))}
+        </div>
+      )}
     </Wrapper>
   </section>
+
+  <!-- Featured Post -->
+  {featuredPost && (
+    <section class="bg-base-50">
+      <Wrapper variant="standard" class="py-16">
+        <a 
+          href={`/blog/${featuredPost.slug}`}
+          class="grid grid-cols-1 lg:grid-cols-2 gap-8 group"
+        >
+          <div class="aspect-video bg-base-200 rounded-lg overflow-hidden">
+            {featuredPost.featured_image ? (
+              <img 
+                src={featuredPost.featured_image} 
+                alt={featuredPost.title}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+            ) : (
+              <div class="w-full h-full bg-accent-100 flex items-center justify-center">
+                <span class="text-accent-400 text-6xl font-bold">T</span>
+              </div>
+            )}
+          </div>
+          <div class="flex flex-col justify-center">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="px-3 py-1 bg-accent-400 text-accent-950 text-xs font-semibold rounded-full">
+                Featured
+              </span>
+              <span class="text-sm text-base-500">{featuredPost.category}</span>
+            </div>
+            <Text tag="h2" variant="displaySM" class="font-medium text-accent-900 group-hover:text-accent-600 transition-colors">
+              {featuredPost.title}
+            </Text>
+            <Text tag="p" variant="textLG" class="text-base-600 mt-4">
+              {featuredPost.excerpt}
+            </Text>
+            <div class="flex items-center gap-4 mt-6 text-sm text-base-500">
+              <span>{featuredPost.author_name}</span>
+              <span>•</span>
+              <span>{featuredPost.reading_time} min read</span>
+              {featuredPost.published_at && (
+                <>
+                  <span>•</span>
+                  <span>{new Date(featuredPost.published_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                </>
+              )}
+            </div>
+          </div>
+        </a>
+      </Wrapper>
+    </section>
+  )}
+
+  <!-- All Posts Grid -->
   <section>
-    <Wrapper variant="standard" class="py-24">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-x-8 gap-y-24">
-        {allPosts.map((post) => <BlogCard post={post} />)}
-      </div>
+    <Wrapper variant="standard" class="py-16">
+      <Text tag="h2" variant="textXL" class="font-medium text-accent-900 mb-8">
+        Latest Articles
+      </Text>
+      
+      {regularPosts.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {regularPosts.map((post) => (
+            <BlogCard post={post} />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12 bg-base-50 rounded-lg">
+          <Text tag="p" variant="textLG" class="text-base-600">
+            No blog posts yet. Check back soon for insights on social impact and CSR.
+          </Text>
+        </div>
+      )}
     </Wrapper>
   </section>
+
+  <!-- Tags Section -->
+  {allTags.length > 0 && (
+    <section class="bg-base-50">
+      <Wrapper variant="standard" class="py-16">
+        <Text tag="h2" variant="textXL" class="font-medium text-accent-900 mb-6">
+          Browse by Topic
+        </Text>
+        <div class="flex flex-wrap gap-3">
+          {allTags.map((tag) => (
+            <a 
+              href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+              class="px-4 py-2 bg-white text-base-600 rounded-full text-sm font-medium hover:bg-accent-50 hover:text-accent-700 transition-colors border border-base-200"
+            >
+              {tag}
+            </a>
+          ))}
+        </div>
+      </Wrapper>
+    </section>
+  )}
 </BaseLayout>

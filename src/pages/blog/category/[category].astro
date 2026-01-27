@@ -1,0 +1,176 @@
+export const prerender = false;
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Kicker from "@/components/fundations/elements/Kicker.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Components
+import BlogCard from "@/components/blog/BlogCard.astro";
+
+// Get category from URL
+const { category } = Astro.params;
+
+// Fetch from Supabase
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const supabaseKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+
+let posts = [];
+let categoryInfo = null;
+let allCategories = [];
+
+try {
+  // Fetch category info
+  const categoryResponse = await fetch(
+    `${supabaseUrl}/rest/v1/post_categories?slug=eq.${category}&limit=1`,
+    {
+      headers: {
+        'apikey': supabaseKey,
+        'Authorization': `Bearer ${supabaseKey}`,
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+  
+  if (categoryResponse.ok) {
+    const categories = await categoryResponse.json();
+    categoryInfo = categories[0] || null;
+  }
+
+  // Fetch posts in this category
+  if (categoryInfo) {
+    const postsResponse = await fetch(
+      `${supabaseUrl}/rest/v1/posts?is_published=eq.true&category=eq.${encodeURIComponent(categoryInfo.name)}&order=published_at.desc`,
+      {
+        headers: {
+          'apikey': supabaseKey,
+          'Authorization': `Bearer ${supabaseKey}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    
+    if (postsResponse.ok) {
+      posts = await postsResponse.json();
+    }
+  }
+
+  // Fetch all categories for navigation
+  const allCategoriesResponse = await fetch(
+    `${supabaseUrl}/rest/v1/post_categories?order=sort_order.asc`,
+    {
+      headers: {
+        'apikey': supabaseKey,
+        'Authorization': `Bearer ${supabaseKey}`,
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+  
+  if (allCategoriesResponse.ok) {
+    allCategories = await allCategoriesResponse.json();
+  }
+} catch (error) {
+  console.error('Error fetching category data:', error);
+}
+
+// 404 if category not found
+if (!categoryInfo) {
+  return Astro.redirect('/404');
+}
+
+// SEO
+const seo = {
+  title: `${categoryInfo.name} | Transunifyy Blog`,
+  description: categoryInfo.description || `Articles about ${categoryInfo.name}`,
+};
+---
+
+<BaseLayout seo={seo} navTransparent={true}>
+  <!-- Hero Section -->
+  <section class="bg-accent-950">
+    <Wrapper
+      variant="standard"
+      class="py-12 pt-48 lg:border-x lg:border-white/10"
+    >
+      <div class="max-w-3xl text-balance">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-sm text-base-400 mb-8">
+          <a href="/blog" class="hover:text-white transition-colors">Blog</a>
+          <span>/</span>
+          <span class="text-white">{categoryInfo.name}</span>
+        </nav>
+        
+        <Kicker class="text-accent-400">Category</Kicker>
+        <Text
+          tag="h1"
+          variant="displayMD"
+          class="font-medium tracking-tight mt-4 text-white"
+        >
+          {categoryInfo.name}
+        </Text>
+        {categoryInfo.description && (
+          <Text tag="p" variant="textLG" class="text-base-400 mt-4">
+            {categoryInfo.description}
+          </Text>
+        )}
+        <Text tag="p" variant="textBase" class="text-base-500 mt-4">
+          {posts.length} {posts.length === 1 ? 'article' : 'articles'}
+        </Text>
+      </div>
+      
+      <!-- Categories Navigation -->
+      {allCategories.length > 0 && (
+        <div class="flex flex-wrap gap-3 mt-8">
+          <a 
+            href="/blog" 
+            class="px-4 py-2 bg-white/5 text-base-300 rounded-full text-sm font-medium hover:bg-white/10 transition-colors border border-white/10"
+          >
+            All Posts
+          </a>
+          {allCategories.map((cat) => (
+            <a 
+              href={`/blog/category/${cat.slug}`}
+              class:list={[
+                "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+                cat.slug === category 
+                  ? "bg-white/10 text-white border border-white/20" 
+                  : "bg-white/5 text-base-300 hover:bg-white/10 border border-white/10"
+              ]}
+            >
+              {cat.name}
+            </a>
+          ))}
+        </div>
+      )}
+    </Wrapper>
+  </section>
+
+  <!-- Posts Grid -->
+  <section>
+    <Wrapper variant="standard" class="py-16">
+      {posts.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.map((post) => (
+            <BlogCard post={post} />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12 bg-base-50 rounded-lg">
+          <Text tag="p" variant="textLG" class="text-base-600">
+            No articles in this category yet. Check back soon!
+          </Text>
+          <a 
+            href="/blog"
+            class="inline-flex items-center gap-2 mt-4 text-accent-600 hover:text-accent-700 font-medium"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to all posts
+          </a>
+        </div>
+      )}
+    </Wrapper>
+  </section>
+</BaseLayout>

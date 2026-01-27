@@ -1,41 +1,93 @@
 ---
-// Assets
-import { Image } from "astro:assets";
 // Fundations
 import Text from "@/components/fundations/elements/Text.astro";
-import UnderlinedLink from "@/components/fundations/elements/UnderlinedLink.astro";
-// Content
-const { title, description, url, image } = {
-  url: "/blog/posts/" + Astro.props.post.slug,
-  title: Astro.props.post.data.title,
-  description: Astro.props.post.data.description,
-  image: Astro.props.post.data.image.url,
-};
+
+const { post } = Astro.props;
+
+// Format date
+const formattedDate = post.published_at 
+  ? new Date(post.published_at).toLocaleDateString('en-IN', { 
+      day: 'numeric', 
+      month: 'short', 
+      year: 'numeric' 
+    })
+  : null;
 ---
-<article>
-  <Image
-    src={image}
-    alt={title}
-    width={1000}
-    height={100}
-    loading="lazy"
-    decoding="async"
-    class="object-cover object-center w-full aspect-4/3 rounded"
-  />
-  <div class="mt-4">
-    <Text tag="h3" variant="textXL" class="font-medium text-accent-900"
-      >{title}</Text
-    >
-    <Text tag="p" variant="textBase" class="text-base-600 mt-1"
-      >{description}</Text
-    >
-    <UnderlinedLink
-      href={url}
-      title={`Read more: ${title}`}
-      aria-label={`Read blog post: ${title}`}
-      class="mt-4"
-    >
-      Read further
-    </UnderlinedLink>
-  </div>
+
+<article class="group">
+  <a href={`/blog/${post.slug}`} class="block">
+    <!-- Image -->
+    <div class="aspect-video bg-base-100 rounded-lg overflow-hidden">
+      {post.featured_image ? (
+        <img 
+          src={post.featured_image} 
+          alt={post.title}
+          loading="lazy"
+          decoding="async"
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+      ) : (
+        <div class="w-full h-full bg-accent-50 flex items-center justify-center">
+          <span class="text-accent-300 text-4xl font-bold">T</span>
+        </div>
+      )}
+    </div>
+    
+    <!-- Content -->
+    <div class="mt-4">
+      <!-- Category & Date -->
+      <div class="flex items-center gap-3 mb-2">
+        {post.category && (
+          <span class="text-sm text-accent-600 font-medium">
+            {post.category}
+          </span>
+        )}
+        {formattedDate && (
+          <>
+            <span class="text-base-300">•</span>
+            <span class="text-sm text-base-500">{formattedDate}</span>
+          </>
+        )}
+      </div>
+      
+      <!-- Title -->
+      <Text 
+        tag="h3" 
+        variant="textXL" 
+        class="font-medium text-accent-900 group-hover:text-accent-600 transition-colors line-clamp-2"
+      >
+        {post.title}
+      </Text>
+      
+      <!-- Excerpt -->
+      {post.excerpt && (
+        <Text tag="p" variant="textBase" class="text-base-600 mt-2 line-clamp-2">
+          {post.excerpt}
+        </Text>
+      )}
+      
+      <!-- Footer -->
+      <div class="flex items-center justify-between mt-4">
+        <div class="flex items-center gap-2">
+          {post.author_avatar ? (
+            <img 
+              src={post.author_avatar} 
+              alt={post.author_name}
+              class="size-8 rounded-full object-cover"
+            />
+          ) : (
+            <div class="size-8 rounded-full bg-accent-100 flex items-center justify-center">
+              <span class="text-accent-600 text-sm font-semibold">
+                {post.author_name?.charAt(0) || 'T'}
+              </span>
+            </div>
+          )}
+          <span class="text-sm text-base-600">{post.author_name}</span>
+        </div>
+        {post.reading_time && (
+          <span class="text-sm text-base-500">{post.reading_time} min read</span>
+        )}
+      </div>
+    </div>
+  </a>
 </article>
