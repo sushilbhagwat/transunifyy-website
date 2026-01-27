@@ -1,8 +1,9 @@
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
-import node from '@astrojs/node'; 
+import vercel from '@astrojs/vercel';  // ← Change this
 import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
+
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
@@ -18,10 +19,8 @@ export default defineConfig({
     skipInline: false,
     drafts: true,
   },
-output: 'server',  // or 'server'
-  adapter: node({
-    mode: 'standalone'
-  }),
+  output: 'server',
+  adapter: vercel(),  // ← Change this
   site: "https://yourwebsite.com",
-  integrations: [tailwindcss(), sitemap(), mdx()],
+  integrations: [sitemap(), mdx()],  // ← Remove tailwindcss() from here, it's already in vite.plugins
 });
