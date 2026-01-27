@@ -18,7 +18,7 @@ export default defineConfig({
     skipInline: false,
     drafts: true,
   },
-output: 'static',  // or 'server'
+output: 'server',  // or 'server'
   adapter: node({
     mode: 'standalone'
   }),
